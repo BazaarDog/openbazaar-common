@@ -1059,11 +1059,7 @@
 | ListSales | [.OrderPageRequestType](#OrderPageRequestType) | [.Order](#OrderPageRequestType) | Returns a list of all moderation cases that the node was involved in. |
 | ListPurchases | [.OrderPageRequestType](#OrderPageRequestType) | [.Order](#OrderPageRequestType) | Returns a list of all purchases that the node has made. |
 | GetQuote | [.OrderRequestType](#OrderRequestType) | [.OrderResponseType](#OrderRequestType) | Get an order by ID |
-| Purchase | [.OrderRequestType](#OrderRequestType) | [.OrderResponseType](#OrderRequestType) | The purchase call can be made to a reachable or a unreachable vendor (offline or not able to receive incoming messages).
-
-An order will be created in the AWAITING_PAYMENT state after this call.
-
-If the total of the purchase is not more than 4X the current transaction fee, the purchase will be rejected (ie: if the fee is 0.0001, the total purchase must be more than 0.0004). |
+| Purchase | [.OrderRequestType](#OrderRequestType) | [.OrderResponseType](#OrderRequestType) | The purchase call can be made to a reachable or a unreachable vendor (offline or not able to receive incoming messages). An order will be created in the AWAITING_PAYMENT state after this call. If the total of the purchase is not more than 4X the current transaction fee, the purchase will be rejected (ie: if the fee is 0.0001, the total purchase must be more than 0.0004). |
 | UpdatePerson | [.Order](#Order) | [.OrderResponseType](#Order) |  |
 | DeletePerson | [.Order](#Order) | [.OrderResponseType](#Order) |  |
 
