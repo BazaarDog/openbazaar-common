@@ -19,13 +19,13 @@ message Coupon {
 }
 
 message OrderRespApi {
-    RicardianContract contract                            = 1;
-    OrderState state                                      = 2;
-    bool read                                             = 3;
-    bool funded                                           = 4;
-    uint64 unreadChatMessages                             = 5;
-    repeated TransactionRecord paymentAddressTransactions = 6;
-    TransactionRecord refundAddressTransaction            = 7;
+    RicardianContract contract                            = 1; /** Order contract */
+    OrderState state                                      = 2; /** State of the order */
+    bool read                                             = 3; /** Whether or not the order has been by the vendor */
+    bool funded                                           = 4; /** Whether the order is funded */
+    uint64 unreadChatMessages                             = 5; /** number of unread chat messages associated  */
+    repeated TransactionRecord paymentAddressTransactions = 6; /** Payments funding the order */
+    TransactionRecord refundAddressTransaction            = 7; /** Refund address */
 }
 
 message CaseRespApi {

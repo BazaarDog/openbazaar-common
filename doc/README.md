@@ -124,6 +124,27 @@
   
   
 
+- [proto/search.proto](#proto/search.proto)
+    - [ListingFlat](#.ListingFlat)
+    - [SearchResponse](#.SearchResponse)
+    - [SearchResponse.LinksEntry](#.SearchResponse.LinksEntry)
+    - [SearchResponse.OptionsEntry](#.SearchResponse.OptionsEntry)
+    - [SearchResponse.Relationship](#.SearchResponse.Relationship)
+    - [SearchResponse.SearchProviderOption](#.SearchResponse.SearchProviderOption)
+    - [SearchResponse.SearchProviderOptionItem](#.SearchResponse.SearchProviderOptionItem)
+    - [SearchResponse.SearchProviderSort](#.SearchResponse.SearchProviderSort)
+    - [SearchResponse.SearchResult](#.SearchResponse.SearchResult)
+    - [SearchResponse.SearchResults](#.SearchResponse.SearchResults)
+    - [SearchResponse.SortByEntry](#.SearchResponse.SortByEntry)
+    - [SearchResponse.Vendor](#.SearchResponse.Vendor)
+    - [SearchResponse.VendorWrap](#.SearchResponse.VendorWrap)
+  
+    - [ListingFlat.ContractType](#.ListingFlat.ContractType)
+    - [SearchResponse.SearchResultType](#.SearchResponse.SearchResultType)
+  
+  
+  
+
 - [Scalar Value Types](#scalar-value-types)
 
 
@@ -184,13 +205,13 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| contract | [RicardianContract](#RicardianContract) |  |  |
-| state | [OrderState](#OrderState) |  |  |
-| read | [bool](#bool) |  |  |
-| funded | [bool](#bool) |  |  |
-| unreadChatMessages | [uint64](#uint64) |  |  |
-| paymentAddressTransactions | [TransactionRecord](#TransactionRecord) | repeated |  |
-| refundAddressTransaction | [TransactionRecord](#TransactionRecord) |  |  |
+| contract | [RicardianContract](#RicardianContract) |  | Order contract |
+| state | [OrderState](#OrderState) |  | State of the order |
+| read | [bool](#bool) |  | Whether or not the order has been by the vendor |
+| funded | [bool](#bool) |  | Whether the order is funded |
+| unreadChatMessages | [uint64](#uint64) |  | number of unread chat messages associated |
+| paymentAddressTransactions | [TransactionRecord](#TransactionRecord) | repeated | Payments funding the order |
+| refundAddressTransaction | [TransactionRecord](#TransactionRecord) |  | Refund address |
 
 
 
@@ -1561,8 +1582,8 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| currencyCode | [string](#string) |  |  |
-| amount | [uint64](#uint64) |  | Bitcoins must be in satoshi |
+| currencyCode | [string](#string) |  | Letter code for currency |
+| amount | [uint64](#uint64) |  | Cryptocurrency in satoshi |
 
 
 
@@ -1634,13 +1655,13 @@
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| slug | [string](#string) |  |  |
-| vendorID | [ID](#ID) |  |  |
-| title | [string](#string) |  |  |
-| longForm | [string](#string) |  |  |
-| images | [Image](#Image) | repeated |  |
-| tags | [string](#string) | repeated |  |
-| timestamp | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
+| slug | [string](#string) |  | Immutable human readabile clean url |
+| vendorID | [ID](#ID) |  | PeerID of the content |
+| title | [string](#string) |  | Title of post |
+| longForm | [string](#string) |  | Post content |
+| images | [Image](#Image) | repeated | List of post images |
+| tags | [string](#string) | repeated | List of text tags |
+| timestamp | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  | Creation time of post |
 
 
 
@@ -1691,7 +1712,7 @@ both the root cryptocurrency address and ipfs public hash.
 | ----- | ---- | ----- | ----------- |
 | peerID | [string](#string) |  | The unique Base58 CIDv0 ipfs node identifer, (Qm...). |
 | handle | [string](#string) |  | Distinct authoritative human-readable name (i.e. dnslink) |
-| name | [string](#string) |  | User provided name, or randomly generated string |
+| name | [string](#string) |  | Display name of peer |
 | location | [string](#string) |  | Description of store location (100 character limit) |
 | about | [string](#string) |  | Long description with basic html markup allowed. |
 | shortDescription | [string](#string) |  | Text description of peer, (160 character limit). |
@@ -1716,16 +1737,16 @@ both the root cryptocurrency address and ipfs public hash.
 <a name=".Profile.Colors"/>
 
 ### Profile.Colors
-Theme colors for future use.
+Profile theme colors, not implemented. Values given in html style hex code
 
 
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
-| primary | [string](#string) |  | Twitter style profile theme color #FFFFFF |
-| secondary | [string](#string) |  | Alternate color #ECEEF2 |
-| text | [string](#string) |  | Text color #252525 |
-| highlight | [string](#string) |  | Highlight color #2BAD23 |
-| highlightText | [string](#string) |  | Highlight text color #252525 |
+| primary | [string](#string) |  | Twitter style profile theme color, default #FFFFFF |
+| secondary | [string](#string) |  | Alternate color, default #ECEEF2 |
+| text | [string](#string) |  | Text color, default #252525 |
+| highlight | [string](#string) |  | Highlight color, default #2BAD23 |
+| highlightText | [string](#string) |  | Highlight text color, default #252525 |
 
 
 
@@ -1787,6 +1808,279 @@ Unverified stats maintained and provided by server for convenience.
 
 
  
+
+ 
+
+ 
+
+ 
+
+
+
+<a name="proto/search.proto"/>
+<p align="right"><a href="#top">Top</a></p>
+
+## proto/search.proto
+
+
+
+<a name=".ListingFlat"/>
+
+### ListingFlat
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [string](#string) |  |  |
+| peerID | [string](#string) |  |  |
+| slug | [string](#string) |  |  |
+| title | [string](#string) |  |  |
+| description | [string](#string) |  |  |
+| nsfw | [bool](#bool) |  |  |
+| contractType | [ListingFlat.ContractType](#ListingFlat.ContractType) |  |  |
+| profileName | [string](#string) |  |  |
+| profileAvatar | [string](#string) |  |  |
+| pricingCurrency | [string](#string) |  |  |
+| acceptedCurrencies | [string](#string) | repeated |  |
+| price | [uint64](#uint64) |  |  |
+| ratingCount | [uint32](#uint32) |  |  |
+| averageRating | [float](#float) |  |  |
+| thumbnail | [string](#string) |  |  |
+
+
+
+
+
+
+<a name=".SearchResponse"/>
+
+### SearchResponse
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| name | [string](#string) |  | Display name of search provider |
+| logo | [string](#string) |  | URL of icon for search provider |
+| links | [SearchResponse.LinksEntry](#SearchResponse.LinksEntry) | repeated | URI endpoints |
+| options | [SearchResponse.OptionsEntry](#SearchResponse.OptionsEntry) | repeated | Filtering options for search |
+| sortBy | [SearchResponse.SortByEntry](#SearchResponse.SortByEntry) | repeated | Sorting options for search |
+
+
+
+
+
+
+<a name=".SearchResponse.LinksEntry"/>
+
+### SearchResponse.LinksEntry
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| value | [string](#string) |  |  |
+
+
+
+
+
+
+<a name=".SearchResponse.OptionsEntry"/>
+
+### SearchResponse.OptionsEntry
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| value | [SearchResponse.SearchProviderOption](#SearchResponse.SearchProviderOption) |  |  |
+
+
+
+
+
+
+<a name=".SearchResponse.Relationship"/>
+
+### SearchResponse.Relationship
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| moderators | [string](#string) | repeated |  |
+| vendor | [SearchResponse.VendorWrap](#SearchResponse.VendorWrap) |  |  |
+
+
+
+
+
+
+<a name=".SearchResponse.SearchProviderOption"/>
+
+### SearchResponse.SearchProviderOption
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| label | [string](#string) |  |  |
+| type | [SearchResponse.SearchProviderOption.OptionType](#SearchResponse.SearchProviderOption.OptionType) |  |  |
+| options | [SearchResponse.SearchProviderOption.OptionsEntry](#SearchResponse.SearchProviderOption.OptionsEntry) | repeated |  |
+
+
+
+
+
+
+<a name=".SearchResponse.SearchProviderOptionItem"/>
+
+### SearchResponse.SearchProviderOptionItem
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| label | [string](#string) |  |  |
+| value | [google.protobuf.Any](#google.protobuf.Any) |  |  |
+| checked | [bool](#bool) |  |  |
+| default | [bool](#bool) |  |  |
+
+
+
+
+
+
+<a name=".SearchResponse.SearchProviderSort"/>
+
+### SearchResponse.SearchProviderSort
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| label | [string](#string) |  |  |
+| selected | [bool](#bool) |  |  |
+| default | [bool](#bool) |  |  |
+
+
+
+
+
+
+<a name=".SearchResponse.SearchResult"/>
+
+### SearchResponse.SearchResult
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| type | [string](#string) |  |  |
+| relationships | [SearchResponse.Relationship](#SearchResponse.Relationship) |  |  |
+| data | [Listing](#Listing) |  |  |
+
+
+
+
+
+
+<a name=".SearchResponse.SearchResults"/>
+
+### SearchResponse.SearchResults
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| total | [uint64](#uint64) |  |  |
+| morePages | [bool](#bool) |  |  |
+| results | [SearchResponse.SearchResult](#SearchResponse.SearchResult) | repeated |  |
+
+
+
+
+
+
+<a name=".SearchResponse.SortByEntry"/>
+
+### SearchResponse.SortByEntry
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| key | [string](#string) |  |  |
+| value | [SearchResponse.SearchProviderSort](#SearchResponse.SearchProviderSort) |  |  |
+
+
+
+
+
+
+<a name=".SearchResponse.Vendor"/>
+
+### SearchResponse.Vendor
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| peerID | [string](#string) |  |  |
+| name | [string](#string) |  |  |
+| avatarHashes | [Image](#Image) |  |  |
+
+
+
+
+
+
+<a name=".SearchResponse.VendorWrap"/>
+
+### SearchResponse.VendorWrap
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| data | [SearchResponse.Vendor](#SearchResponse.Vendor) |  |  |
+
+
+
+
+
+ 
+
+
+<a name=".ListingFlat.ContractType"/>
+
+### ListingFlat.ContractType
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| PHYSICAL_GOOD | 0 |  |
+| DIGITAL_GOOD | 1 |  |
+| SERVICE | 2 |  |
+| CROWD_FUND | 3 |  |
+| CRYPTOCURRENCY | 4 |  |
+
+
+
+<a name=".SearchResponse.SearchResultType"/>
+
+### SearchResponse.SearchResultType
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| LISTING | 0 |  |
+| NODE | 1 |  |
+
 
  
 

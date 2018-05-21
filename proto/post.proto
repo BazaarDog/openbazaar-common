@@ -7,13 +7,13 @@ import "proto/contract.proto";
 import "proto/image.proto";
 
 message Post {
-    string slug                         = 1;
-    ID vendorID                         = 2;
-    string title                        = 3;
-    string longForm                     = 4;
-    repeated Image images               = 5;
-    repeated string tags                = 6;
-    google.protobuf.Timestamp timestamp = 7;
+    string slug                         = 1; /** Immutable human readabile clean url */
+    ID vendorID                         = 2; /** PeerID of the content */
+    string title                        = 3; /** Title of post */
+    string longForm                     = 4; /** Post content */
+    repeated Image images               = 5; /** List of post images */
+    repeated string tags                = 6; /** List of text tags */
+    google.protobuf.Timestamp timestamp = 7; /** Creation time of post */
 
 }
 

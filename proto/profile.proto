@@ -14,7 +14,7 @@ message Profile {
 
     string peerID                          = 1;  /** The unique Base58 CIDv0 ipfs node identifer, (Qm...). */
     string handle                          = 2;  /** Distinct authoritative human-readable name (i.e. dnslink) */
-    string name                            = 3;  /** User provided name, or randomly generated string */
+    string name                            = 3;  /** Display name of peer */
     string location                        = 4;  /** Description of store location (100 character limit) */
     string about                           = 5;  /** Long description with basic html markup allowed. */
     string shortDescription                = 6;  /** Text description of peer, (160 character limit). */
@@ -64,14 +64,14 @@ message Profile {
 
 
     /**
-     * Theme colors for future use.
+     * Profile theme colors, not implemented. Values given in html style hex code
     */
     message Colors {
-        string primary       = 1; /** Twitter style profile theme color #FFFFFF*/
-        string secondary     = 2; /** Alternate color #ECEEF2*/
-        string text          = 3; /** Text color #252525*/
-        string highlight     = 4; /** Highlight color #2BAD23*/
-        string highlightText = 5; /** Highlight text color #252525*/
+        string primary       = 1; /** Twitter style profile theme color, default #FFFFFF*/
+        string secondary     = 2; /** Alternate color, default #ECEEF2*/
+        string text          = 3; /** Text color, default #252525*/
+        string highlight     = 4; /** Highlight color, default #2BAD23*/
+        string highlightText = 5; /** Highlight text color, default #252525*/
     }
 
     /**

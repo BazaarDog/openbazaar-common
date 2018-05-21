@@ -24,8 +24,8 @@ message Moderator {
     }
 
     message Price {
-        string currencyCode = 1;
-        uint64 amount       = 2; // Bitcoins must be in satoshi
+        string currencyCode = 1; // Letter code for currency
+        uint64 amount       = 2; // Cryptocurrency in satoshi
     }
 }
 

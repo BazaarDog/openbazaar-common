@@ -1,0 +1,109 @@
+syntax = "proto3";
+option go_package = "pb";
+
+import "proto/google/protobuf/any.proto";
+import "proto/contract.proto";
+import "proto/image.proto";
+
+/**
+* An OBIP-0002 compliant search response
+*/
+
+message SearchResponse {
+
+    string name                               = 1; /** Display name of search provider */
+    string logo                               = 2; /** URL of icon for search provider */
+    map<string, string> links                 = 3; /** URI endpoints */
+    map<string, SearchProviderOption> options = 4; /** Filtering options for search  */
+    map<string, SearchProviderSort> sortBy    = 5; /** Sorting options for search  */
+
+    message SearchProviderOptionItem {
+
+        string label              = 1;
+        google.protobuf.Any value = 2;
+        bool checked              = 3;
+        bool default              = 4;
+    }
+
+
+    message SearchProviderOption {
+
+        enum OptionType {
+            RADIO    = 0;
+            CHECKBOX = 1;
+            DROPDOWN = 2;
+        }
+
+        string label                                 = 1;
+        OptionType type                              = 2;
+        map<string,SearchProviderOptionItem> options = 3;
+    }
+
+    message SearchProviderSort {
+        string label  = 1;
+        bool selected = 2;
+        bool default  = 3;
+    }
+
+    enum SearchResultType {
+        LISTING  = 0;
+        NODE     = 1;
+    }
+
+    message Vendor {
+        string peerID        = 1;
+        string name          = 2;
+        Image avatarHashes   = 3;
+
+    }
+    message VendorWrap {
+        Vendor data = 1;
+    }
+    message Relationship{
+        repeated string moderators = 1;
+        VendorWrap vendor          = 2;
+    }
+
+    message SearchResult {
+        string type                = 1;
+        Relationship relationships = 2;
+        Listing data               = 3;
+    }
+
+    message SearchResults {
+        uint64 total                  = 1;
+        bool morePages                = 2;
+        repeated SearchResult results = 4;
+    }
+}
+
+/**
+* A flat minimal listing record useful for offline caching.
+*/
+
+message ListingFlat {
+
+    enum ContractType {
+        PHYSICAL_GOOD  = 0;
+        DIGITAL_GOOD   = 1;
+        SERVICE        = 2;
+        CROWD_FUND     = 3;
+        CRYPTOCURRENCY = 4;
+    }
+
+    string id                          = 1;
+    string peerID                      = 2;
+    string slug                        = 3;
+    string title                       = 4;
+    string description                 = 5;
+    bool nsfw                          = 6;
+    ContractType contractType          = 7;
+    string profileName                 = 8;
+    string profileAvatar               = 9;
+    string pricingCurrency             = 10;
+    repeated string acceptedCurrencies = 11;
+    uint64 price                       = 12;
+    uint32 ratingCount                 = 13;
+    float averageRating                = 14;
+    string thumbnail                   = 15;
+}
