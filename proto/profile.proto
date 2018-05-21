@@ -1,0 +1,87 @@
+syntax = "proto3";
+option go_package = "pb";
+
+
+import "google/protobuf/timestamp.proto";
+import "moderator.proto";
+
+/**
+ * A participant on the openbazaar network. Defined by a random secret (12 word seed), used to generate
+ * both the root cryptocurrency address and ipfs public hash.
+*/
+message Profile {
+    string peerID                          = 1;  /** The unique Base58 CIDv0 ipfs node identifer, (Qm...). */
+    string handle                          = 2;  /** Distinct authoritative human-readable name (i.e. dnslink) */
+    string name                            = 3;  /** User provided name, or randomly generated string */
+    string location                        = 4;  /** Description of store location (100 character limit) */
+    string about                           = 5;
+    string shortDescription                = 6;  /** Text description of peer, (160 character limit). */
+
+    bool nsfw                              = 7;  /** Whether the node hosts mature or adult content. */
+    bool vendor                            = 8;  /** Whether the node is open and operating as a store. */
+    bool moderator                         = 9;  /** Whether the node offers moderation as a service. */
+    Moderator moderatorInfo                = 10; /** Details of the terms and rates for moderation */
+
+    Contact contactInfo                    = 11; /** The contact info for the node. */
+    Colors colors                          = 12; /** Theme colors for the node. */
+
+    // The following data is added to the profile
+    // automatically by the server and may be omitted
+    // when setting the profile via API.
+
+    Image avatarHashes                     = 13; /** The node avatar image. (tiny: 60x60)  */
+    Image headerHashes                     = 14; /** A wide image for use as a banner. (tiny: 315x90) */
+
+    Stats stats                            = 15; /** Aggregate node statistics, counts and averages. */
+
+    string bitcoinPubkey                   = 16; /** 33-bit bitcoin public key in hex */
+
+    google.protobuf.Timestamp lastModified = 17; /** When the node data was last modified. */
+
+    repeated string currencies             = 18; /** List of currencies the node accepts or operates with. */
+
+
+    message Contact {
+        string website                = 1; /** Website url */
+        string email                  = 2; /** Contact email address */
+        string phoneNumber            = 3; /** Contact phone number */
+        repeated SocialAccount social = 4; /** List of social accounts. */
+    }
+
+    message SocialAccount {
+        string type     = 1; /** Social media platform */
+        string username = 2; /** Handle on social media platform */
+        string proof    = 3; /** Link to proof of identity on social account */
+    }
+
+    message Image {
+        string tiny     = 1; /** Image resource at smallest size, given by CIDv1 hash */
+        string small    = 2; /** The CIDv1 hash of the image resource with double the dimensions of tiny version. */
+        string medium   = 3; /** Double the size of small image */
+        string large    = 4; /** Doubled again... */
+        string original = 5; /** Original resource */
+    }
+
+    /**
+     * Theme colors for future use.
+    */
+    message Colors {
+        string primary       = 1 [default = "#FFFFFF"]; /** Twitter style profile theme color */
+        string secondary     = 2 [default = "#ECEEF2"]; /** Alternate color */
+        string text          = 3 [default = "#252525"]; /** Text color */
+        string highlight     = 4 [default = "#2BAD23"]; /** Highlight color */
+        string highlightText = 5 [default = "#252525"]; /** Highlight text color */
+    }
+
+    /**
+     * Unverified stats maintained and provided by server for convenience.
+    */
+    message Stats {
+        uint32 followerCount  = 1; /** Follower count */
+        uint32 followingCount = 2; /** Following count */
+        uint32 listingCount   = 3; /** Total active listing count */
+        uint32 ratingCount    = 4; /** Rating count */
+        uint32 postCount      = 5; /** Total number of posts */
+        float averageRating   = 6; /** Average of all 'overall ratings' */
+    }
+}
