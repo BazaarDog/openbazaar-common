@@ -41,7 +41,10 @@
     - [OrderFulfillment.DigitalDelivery](#.OrderFulfillment.DigitalDelivery)
     - [OrderFulfillment.Payout](#.OrderFulfillment.Payout)
     - [OrderFulfillment.PhysicalDelivery](#.OrderFulfillment.PhysicalDelivery)
+    - [OrderPageRequestType](#.OrderPageRequestType)
     - [OrderReject](#.OrderReject)
+    - [OrderRequestType](#.OrderRequestType)
+    - [OrderResponseType](#.OrderResponseType)
     - [Outpoint](#.Outpoint)
     - [Rating](#.Rating)
     - [Rating.RatingData](#.Rating.RatingData)
@@ -56,6 +59,7 @@
     - [Signature.Section](#.Signature.Section)
   
   
+    - [OrderService](#.OrderService)
   
 
 - [proto/countrycode.proto](#proto/countrycode.proto)
@@ -768,6 +772,22 @@
 
 
 
+<a name=".OrderPageRequestType"/>
+
+### OrderPageRequestType
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| limit | [int32](#int32) |  |  |
+| offset | [int32](#int32) |  |  |
+
+
+
+
+
+
 <a name=".OrderReject"/>
 
 ### OrderReject
@@ -779,6 +799,36 @@
 | orderID | [string](#string) |  |  |
 | timestamp | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
 | sigs | [BitcoinSignature](#BitcoinSignature) | repeated |  |
+
+
+
+
+
+
+<a name=".OrderRequestType"/>
+
+### OrderRequestType
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| order | [Order](#Order) |  |  |
+
+
+
+
+
+
+<a name=".OrderResponseType"/>
+
+### OrderResponseType
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| order | [Order](#Order) |  |  |
 
 
 
@@ -996,6 +1046,26 @@
  
 
  
+
+
+<a name=".OrderService"/>
+
+### OrderService
+
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| ListCases | [.OrderPageRequestType](#OrderPageRequestType) | [.Order](#OrderPageRequestType) | Returns a list of all moderation cases that the node was involved in. |
+| ListSales | [.OrderPageRequestType](#OrderPageRequestType) | [.Order](#OrderPageRequestType) | Returns a list of all moderation cases that the node was involved in. |
+| ListPurchases | [.OrderPageRequestType](#OrderPageRequestType) | [.Order](#OrderPageRequestType) | Returns a list of all purchases that the node has made. |
+| GetQuote | [.OrderRequestType](#OrderRequestType) | [.OrderResponseType](#OrderRequestType) | Get an order by ID |
+| Purchase | [.OrderRequestType](#OrderRequestType) | [.OrderResponseType](#OrderRequestType) | The purchase call can be made to a reachable or a unreachable vendor (offline or not able to receive incoming messages).
+
+An order will be created in the AWAITING_PAYMENT state after this call.
+
+If the total of the purchase is not more than 4X the current transaction fee, the purchase will be rejected (ie: if the fee is 0.0001, the total purchase must be more than 0.0004). |
+| UpdatePerson | [.Order](#Order) | [.OrderResponseType](#Order) |  |
+| DeletePerson | [.Order](#Order) | [.OrderResponseType](#Order) |  |
 
  
 
