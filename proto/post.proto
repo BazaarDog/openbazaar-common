@@ -2,8 +2,9 @@ syntax = "proto3";
 option go_package = "pb";
 
 
-import "google/protobuf/timestamp.proto";
-import "contracts.proto";
+import "proto/google/protobuf/timestamp.proto";
+import "proto/contract.proto";
+import "proto/image.proto";
 
 message Post {
     string slug                         = 1;
@@ -14,14 +15,6 @@ message Post {
     repeated string tags                = 6;
     google.protobuf.Timestamp timestamp = 7;
 
-    message Image {
-        string filename = 1;
-        string original = 2;
-        string large    = 3;
-        string medium   = 4;
-        string small    = 5;
-        string tiny     = 6;
-    }
 }
 
 message SignedPost {

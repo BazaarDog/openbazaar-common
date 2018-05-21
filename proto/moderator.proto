@@ -2,7 +2,7 @@ syntax = "proto3";
 option go_package = "pb";
 
 
-import "contracts.proto";
+import "proto/contract.proto";
 
 message Moderator {
     string description                 = 1;

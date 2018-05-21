@@ -1,0 +1,10 @@
+syntax = "proto3";
+option go_package = "pb";
+
+message Image {
+    string tiny     = 1; /** Image resource at smallest size, given by CIDv1 hash */
+    string small    = 2; /** The CIDv1 hash of the image resource with double the dimensions of tiny version. */
+    string medium   = 3; /** Double the size of small image */
+    string large    = 4; /** Doubled again... */
+    // string original = 5; /** Original resource */
+}

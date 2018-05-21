@@ -2,10 +2,10 @@ syntax = "proto3";
 option go_package = "pb";
 
 
-import "contracts.proto";
-import "orders.proto";
-import "profile.proto";
-import "google/protobuf/timestamp.proto";
+import "proto/contract.proto";
+import "proto/order.proto";
+import "proto/profile.proto";
+import "proto/google/protobuf/timestamp.proto";
 
 // This schema is used for the /ob/listing api call structure
 // We use protobuf for this instead of a basic struct because
@@ -35,7 +35,7 @@ message CaseRespApi {
     repeated string buyerContractValidationErrors  = 4;
     repeated string vendorContractValidationErrors = 5;
     OrderState state                               = 6;
-    bool read                                      = 7;
+    bool read                                      = 7;  /** Whether or not the message has been read */
     bool buyerOpened                               = 8;
     string claim                                   = 9;
     uint64 unreadChatMessages                      = 10;
@@ -56,13 +56,13 @@ message PeerAndProfile {
 }
 
 message PeerAndProfileWithID {
-    string id       = 1;
+    string id       = 1; /** The unique profile ID. */
     string peerId   = 2; /** The unique CIDv0 ipfs node identifer. */
-    Profile profile = 3;
+    Profile profile = 3; /** The profile */
 }
 
 message RatingWithID {
-    string id       = 1;
+    string id       = 1;  /** The unique Rating ID. */
     string ratingId = 2;
     Rating rating   = 3;
 }

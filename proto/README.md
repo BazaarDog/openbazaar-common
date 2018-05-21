@@ -1,15 +1,5 @@
-
-
-This part of the project attempt to minimize repetition of types or models.
-
-
-All types, models and APIs should be generated from the OpenBazaar protocol buffers, or protocol buffers that were
-extended from those base types.
-
-## Maintenance
-
-### Updating proto files
- The OpenBazaar proto files are updated from the openbazaar-go repo by running `update-proto-files.sh`
+### Initializing proto files
+ The OpenBazaar proto files were initially pulled from the openbazaar-go repo by running `update-proto-files.sh`
  **from the types/proto folder.**  As this script initializes, gits and removes a temporary git directory,
  running the script from project root will destroy `.git/` without warning.
 
