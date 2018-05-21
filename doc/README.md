@@ -6,14 +6,21 @@
 - [proto/api.proto](#proto/api.proto)
     - [CaseRespApi](#.CaseRespApi)
     - [Coupon](#.Coupon)
+    - [OrderCompleteRequestType](#.OrderCompleteRequestType)
+    - [OrderConfirmRequestType](#.OrderConfirmRequestType)
+    - [OrderRequestType](#.OrderRequestType)
     - [OrderRespApi](#.OrderRespApi)
+    - [OrderResponseType](#.OrderResponseType)
+    - [PageRequestType](#.PageRequestType)
     - [PeerAndProfile](#.PeerAndProfile)
     - [PeerAndProfileWithID](#.PeerAndProfileWithID)
+    - [RatingStub](#.RatingStub)
     - [RatingWithID](#.RatingWithID)
     - [TransactionRecord](#.TransactionRecord)
   
   
   
+    - [OrderService](#.OrderService)
   
 
 - [proto/contract.proto](#proto/contract.proto)
@@ -34,9 +41,7 @@
     - [Order.Item](#.Order.Item)
     - [Order.Payment](#.Order.Payment)
     - [Order.Shipping](#.Order.Shipping)
-    - [OrderCompleteRequestType](#.OrderCompleteRequestType)
     - [OrderCompletion](#.OrderCompletion)
-    - [OrderConfirmRequestType](#.OrderConfirmRequestType)
     - [OrderConfirmation](#.OrderConfirmation)
     - [OrderFulfillment](#.OrderFulfillment)
     - [OrderFulfillment.CryptocurrencyDelivery](#.OrderFulfillment.CryptocurrencyDelivery)
@@ -44,15 +49,11 @@
     - [OrderFulfillment.Payout](#.OrderFulfillment.Payout)
     - [OrderFulfillment.PhysicalDelivery](#.OrderFulfillment.PhysicalDelivery)
     - [OrderReject](#.OrderReject)
-    - [OrderRequestType](#.OrderRequestType)
-    - [OrderResponseType](#.OrderResponseType)
     - [Outpoint](#.Outpoint)
-    - [PageRequestType](#.PageRequestType)
     - [Rating](#.Rating)
     - [Rating.RatingData](#.Rating.RatingData)
     - [RatingSignature](#.RatingSignature)
     - [RatingSignature.TransactionMetadata](#.RatingSignature.TransactionMetadata)
-    - [RatingStub](#.RatingStub)
     - [Refund](#.Refund)
     - [Refund.TransactionInfo](#.Refund.TransactionInfo)
     - [RicardianContract](#.RicardianContract)
@@ -62,7 +63,6 @@
     - [Signature.Section](#.Signature.Section)
   
   
-    - [OrderService](#.OrderService)
   
 
 - [proto/countrycode.proto](#proto/countrycode.proto)
@@ -132,9 +132,9 @@
   
 
 - [proto/search.proto](#proto/search.proto)
+    - [ListingFlat](#.ListingFlat)
     - [SearchResponse](#.SearchResponse)
     - [SearchResponse.LinksEntry](#.SearchResponse.LinksEntry)
-    - [SearchResponse.ListingFlat](#.SearchResponse.ListingFlat)
     - [SearchResponse.OptionsEntry](#.SearchResponse.OptionsEntry)
     - [SearchResponse.Relationship](#.SearchResponse.Relationship)
     - [SearchResponse.SearchProviderOption](#.SearchResponse.SearchProviderOption)
@@ -146,6 +146,7 @@
     - [SearchResponse.Vendor](#.SearchResponse.Vendor)
     - [SearchResponse.VendorWrap](#.SearchResponse.VendorWrap)
   
+    - [ListingFlat.ContractType](#.ListingFlat.ContractType)
     - [SearchResponse.SearchResultType](#.SearchResponse.SearchResultType)
   
   
@@ -203,6 +204,53 @@
 
 
 
+<a name=".OrderCompleteRequestType"/>
+
+### OrderCompleteRequestType
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| orderId | [string](#string) |  |  |
+| ratings | [RatingStub](#RatingStub) | repeated |  |
+
+
+
+
+
+
+<a name=".OrderConfirmRequestType"/>
+
+### OrderConfirmRequestType
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| orderId | [string](#string) |  |  |
+| reject | [bool](#bool) |  |  |
+
+
+
+
+
+
+<a name=".OrderRequestType"/>
+
+### OrderRequestType
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| orderId | [string](#string) |  |  |
+
+
+
+
+
+
 <a name=".OrderRespApi"/>
 
 ### OrderRespApi
@@ -218,6 +266,37 @@
 | unreadChatMessages | [uint64](#uint64) |  | number of unread chat messages associated |
 | paymentAddressTransactions | [TransactionRecord](#TransactionRecord) | repeated | Payments funding the order |
 | refundAddressTransaction | [TransactionRecord](#TransactionRecord) |  | Refund address |
+
+
+
+
+
+
+<a name=".OrderResponseType"/>
+
+### OrderResponseType
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| order | [Order](#Order) |  |  |
+
+
+
+
+
+
+<a name=".PageRequestType"/>
+
+### PageRequestType
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| limit | [int32](#int32) |  |  |
+| offset | [int32](#int32) |  |  |
 
 
 
@@ -251,6 +330,28 @@
 | id | [string](#string) |  | The unique profile ID. |
 | peerId | [string](#string) |  | The unique CIDv0 ipfs node identifer. |
 | profile | [Profile](#Profile) |  | The profile |
+
+
+
+
+
+
+<a name=".RatingStub"/>
+
+### RatingStub
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| slug | [string](#string) |  |  |
+| overall | [uint32](#uint32) |  |  |
+| quality | [uint32](#uint32) |  |  |
+| description | [uint32](#uint32) |  |  |
+| deliverySpeed | [uint32](#uint32) |  |  |
+| customerService | [uint32](#uint32) |  |  |
+| review | [string](#string) |  |  |
+| anonymous | [bool](#bool) |  |  |
 
 
 
@@ -297,6 +398,24 @@
  
 
  
+
+
+<a name=".OrderService"/>
+
+### OrderService
+
+
+| Method Name | Request Type | Response Type | Description |
+| ----------- | ------------ | ------------- | ------------|
+| ListCases | [.PageRequestType](#PageRequestType) | [.Order](#PageRequestType) | Returns a list of all moderation cases that the node was involved in. |
+| ListSales | [.PageRequestType](#PageRequestType) | [.Order](#PageRequestType) | Returns a list of all sales that the node has made. |
+| ListPurchases | [.PageRequestType](#PageRequestType) | [.Order](#PageRequestType) | Returns a list of all purchases that the node has made. |
+| GetQuote | [.OrderRequestType](#OrderRequestType) | [.OrderResponseType](#OrderRequestType) | Get an order by ID |
+| Purchase | [.OrderRequestType](#OrderRequestType) | [.OrderResponseType](#OrderRequestType) | The purchase call can be made to a reachable or a unreachable vendor (offline or not able to receive incoming messages). An order will be created in the AWAITING_PAYMENT state after this call. If the total of the purchase is not more than 4X the current transaction fee, the purchase will be rejected (ie: if the fee is 0.0001, the total purchase must be more than 0.0004). |
+| Confirm | [.OrderCompleteRequestType](#OrderCompleteRequestType) | [.OrderResponseType](#OrderCompleteRequestType) | Online orders are confirmed instantly. This API call is to confirm an order sent to the vendor while he was offline. |
+| Complete | [.OrderCompleteRequestType](#OrderCompleteRequestType) | [.OrderResponseType](#OrderCompleteRequestType) | Send the order complete message (including the rating) to the vendor. If this is a moderated order, it will sign and release the funds to the vendor. |
+| RefundOrder | [.OrderRequestType](#OrderRequestType) | [.OrderResponseType](#OrderRequestType) | Refund the order. If it&#39;s a moderated order, it will release the funds back to the buyer. If it&#39;s direct it will send the coins from your wallet. |
+| CancelOrder | [.OrderRequestType](#OrderRequestType) | [.OrderResponseType](#OrderRequestType) | Cancel an outstanding offline order. It will move the bitcoins back into your wallet. |
 
  
 
@@ -650,22 +769,6 @@
 
 
 
-<a name=".OrderCompleteRequestType"/>
-
-### OrderCompleteRequestType
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| orderId | [string](#string) |  |  |
-| ratings | [RatingStub](#RatingStub) | repeated |  |
-
-
-
-
-
-
 <a name=".OrderCompletion"/>
 
 ### OrderCompletion
@@ -678,22 +781,6 @@
 | timestamp | [google.protobuf.Timestamp](#google.protobuf.Timestamp) |  |  |
 | payoutSigs | [BitcoinSignature](#BitcoinSignature) | repeated |  |
 | ratings | [Rating](#Rating) | repeated |  |
-
-
-
-
-
-
-<a name=".OrderConfirmRequestType"/>
-
-### OrderConfirmRequestType
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| orderId | [string](#string) |  |  |
-| reject | [bool](#bool) |  |  |
 
 
 
@@ -823,36 +910,6 @@
 
 
 
-<a name=".OrderRequestType"/>
-
-### OrderRequestType
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| orderId | [string](#string) |  |  |
-
-
-
-
-
-
-<a name=".OrderResponseType"/>
-
-### OrderResponseType
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| order | [Order](#Order) |  |  |
-
-
-
-
-
-
 <a name=".Outpoint"/>
 
 ### Outpoint
@@ -864,22 +921,6 @@
 | hash | [string](#string) |  | Hex encoded |
 | index | [uint32](#uint32) |  |  |
 | value | [uint64](#uint64) |  |  |
-
-
-
-
-
-
-<a name=".PageRequestType"/>
-
-### PageRequestType
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| limit | [int32](#int32) |  |  |
-| offset | [int32](#int32) |  |  |
 
 
 
@@ -959,28 +1000,6 @@
 | moderatorKey | [bytes](#bytes) |  | Only if moderated |
 | listingTitle | [string](#string) |  |  |
 | thumbnail | [Image](#Image) |  |  |
-
-
-
-
-
-
-<a name=".RatingStub"/>
-
-### RatingStub
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| slug | [string](#string) |  |  |
-| overall | [uint32](#uint32) |  |  |
-| quality | [uint32](#uint32) |  |  |
-| description | [uint32](#uint32) |  |  |
-| deliverySpeed | [uint32](#uint32) |  |  |
-| customerService | [uint32](#uint32) |  |  |
-| review | [string](#string) |  |  |
-| anonymous | [bool](#bool) |  |  |
 
 
 
@@ -1102,24 +1121,6 @@
  
 
  
-
-
-<a name=".OrderService"/>
-
-### OrderService
-
-
-| Method Name | Request Type | Response Type | Description |
-| ----------- | ------------ | ------------- | ------------|
-| ListCases | [.PageRequestType](#PageRequestType) | [.Order](#PageRequestType) | Returns a list of all moderation cases that the node was involved in. |
-| ListSales | [.PageRequestType](#PageRequestType) | [.Order](#PageRequestType) | Returns a list of all sales that the node has made. |
-| ListPurchases | [.PageRequestType](#PageRequestType) | [.Order](#PageRequestType) | Returns a list of all purchases that the node has made. |
-| GetQuote | [.OrderRequestType](#OrderRequestType) | [.OrderResponseType](#OrderRequestType) | Get an order by ID |
-| Purchase | [.OrderRequestType](#OrderRequestType) | [.OrderResponseType](#OrderRequestType) | The purchase call can be made to a reachable or a unreachable vendor (offline or not able to receive incoming messages). An order will be created in the AWAITING_PAYMENT state after this call. If the total of the purchase is not more than 4X the current transaction fee, the purchase will be rejected (ie: if the fee is 0.0001, the total purchase must be more than 0.0004). |
-| Confirm | [.OrderCompleteRequestType](#OrderCompleteRequestType) | [.OrderResponseType](#OrderCompleteRequestType) | Online orders are confirmed instantly. This API call is to confirm an order sent to the vendor while he was offline. |
-| Complete | [.OrderCompleteRequestType](#OrderCompleteRequestType) | [.OrderResponseType](#OrderCompleteRequestType) | Send the order complete message (including the rating) to the vendor. If this is a moderated order, it will sign and release the funds to the vendor. |
-| RefundOrder | [.OrderRequestType](#OrderRequestType) | [.OrderResponseType](#OrderRequestType) | Refund the order. If it&#39;s a moderated order, it will release the funds back to the buyer. If it&#39;s direct it will send the coins from your wallet. |
-| CancelOrder | [.OrderRequestType](#OrderRequestType) | [.OrderResponseType](#OrderRequestType) | Cancel an outstanding offline order. It will move the bitcoins back into your wallet. |
 
  
 
@@ -1948,6 +1949,35 @@ Unverified stats maintained and provided by server for convenience.
 
 
 
+<a name=".ListingFlat"/>
+
+### ListingFlat
+
+
+
+| Field | Type | Label | Description |
+| ----- | ---- | ----- | ----------- |
+| id | [string](#string) |  |  |
+| peerID | [string](#string) |  |  |
+| slug | [string](#string) |  |  |
+| title | [string](#string) |  |  |
+| description | [string](#string) |  |  |
+| nsfw | [bool](#bool) |  |  |
+| contractType | [ListingFlat.ContractType](#ListingFlat.ContractType) |  |  |
+| profileName | [string](#string) |  |  |
+| profileAvatar | [string](#string) |  |  |
+| pricingCurrency | [string](#string) |  |  |
+| acceptedCurrencies | [string](#string) | repeated |  |
+| price | [uint64](#uint64) |  |  |
+| ratingCount | [uint32](#uint32) |  |  |
+| averageRating | [float](#float) |  |  |
+| thumbnail | [string](#string) |  |  |
+
+
+
+
+
+
 <a name=".SearchResponse"/>
 
 ### SearchResponse
@@ -1977,35 +2007,6 @@ Unverified stats maintained and provided by server for convenience.
 | ----- | ---- | ----- | ----------- |
 | key | [string](#string) |  |  |
 | value | [string](#string) |  |  |
-
-
-
-
-
-
-<a name=".SearchResponse.ListingFlat"/>
-
-### SearchResponse.ListingFlat
-
-
-
-| Field | Type | Label | Description |
-| ----- | ---- | ----- | ----------- |
-| id | [string](#string) |  |  |
-| peerID | [string](#string) |  |  |
-| slug | [string](#string) |  |  |
-| title | [string](#string) |  |  |
-| description | [string](#string) |  |  |
-| nsfw | [bool](#bool) |  |  |
-| contractType | [SearchResponse.ListingFlat.ContractType](#SearchResponse.ListingFlat.ContractType) |  |  |
-| profileName | [string](#string) |  |  |
-| profileAvatar | [string](#string) |  |  |
-| pricingCurrency | [string](#string) |  |  |
-| acceptedCurrencies | [string](#string) | repeated |  |
-| price | [uint64](#uint64) |  |  |
-| ratingCount | [uint32](#uint32) |  |  |
-| averageRating | [float](#float) |  |  |
-| thumbnail | [string](#string) |  |  |
 
 
 
@@ -2053,7 +2054,7 @@ Unverified stats maintained and provided by server for convenience.
 | Field | Type | Label | Description |
 | ----- | ---- | ----- | ----------- |
 | label | [string](#string) |  |  |
-| type | [SearchResponse.SearchProviderOption.OptionType](#SearchResponse.SearchProviderOption.OptionType) |  |  |
+| type | [SearchResponse.SearchProviderOption.SearchOptionType](#SearchResponse.SearchProviderOption.SearchOptionType) |  |  |
 | options | [SearchResponse.SearchProviderOption.OptionsEntry](#SearchResponse.SearchProviderOption.OptionsEntry) | repeated |  |
 
 
@@ -2178,6 +2179,21 @@ Unverified stats maintained and provided by server for convenience.
 
 
  
+
+
+<a name=".ListingFlat.ContractType"/>
+
+### ListingFlat.ContractType
+
+
+| Name | Number | Description |
+| ---- | ------ | ----------- |
+| PHYSICAL_GOOD | 0 |  |
+| DIGITAL_GOOD | 1 |  |
+| SERVICE | 2 |  |
+| CROWD_FUND | 3 |  |
+| CRYPTOCURRENCY | 4 |  |
+
 
 
 <a name=".SearchResponse.SearchResultType"/>

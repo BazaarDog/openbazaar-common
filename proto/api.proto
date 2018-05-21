@@ -66,3 +66,94 @@ message RatingWithID {
     string ratingId = 2;
     Rating rating   = 3;
 }
+
+
+
+
+service OrderService {
+
+    /** Returns a list of all moderation cases that the node was involved in. */
+    rpc ListCases(PageRequestType) returns (stream Order) {};
+
+    /** Returns a list of all sales that the node has made. */
+    rpc ListSales(PageRequestType) returns (stream Order) {};
+
+    /** Returns a list of all purchases that the node has made. */
+    rpc ListPurchases(PageRequestType) returns (stream Order) {};
+
+    /** Get an order by ID */
+    rpc GetQuote(OrderRequestType) returns (OrderResponseType) {};
+
+    /**
+      *   The purchase call can be made to a reachable or a unreachable vendor
+      *   (offline or not able to receive incoming messages).
+      *   An order will be created in the AWAITING_PAYMENT state after this call.
+      *   If the total of the purchase is not more than 4X the current transaction fee, the purchase will be rejected
+      *   (ie: if the fee is 0.0001, the total purchase must be more than 0.0004).
+      */
+    rpc Purchase(OrderRequestType) returns (OrderResponseType) {};
+
+
+
+    /**
+    *   Online orders are confirmed instantly. This API call is to confirm an order sent to the vendor
+    *   while he was offline.
+    */
+    rpc Confirm(OrderCompleteRequestType) returns (OrderResponseType) {};
+
+
+
+    /**
+    *   Send the order complete message (including the rating) to the vendor. If this is a moderated order, it will
+    *   sign and release the funds to the vendor.
+    */
+    rpc Complete(OrderCompleteRequestType) returns (OrderResponseType) {};
+
+
+    /**
+    *   Refund the order. If it's a moderated order, it will release the funds back to the buyer.
+    *   If it's direct it will send the coins from your wallet.
+    */
+    rpc RefundOrder(OrderRequestType) returns (OrderResponseType) {};
+
+    /**
+    *   Cancel an outstanding offline order. It will move the bitcoins back into your wallet.
+    */
+    rpc CancelOrder(OrderRequestType) returns (OrderResponseType) {};
+
+
+}
+
+message OrderResponseType {
+    Order order = 1;
+}
+
+message RatingStub{
+    string slug            = 1;
+    uint32 overall         = 2;
+    uint32 quality         = 3;
+    uint32 description     = 4;
+    uint32 deliverySpeed   = 5;
+    uint32 customerService = 6;
+    string review          = 7;
+    bool anonymous         = 8;
+}
+
+message OrderCompleteRequestType {
+    string orderId = 1;
+    repeated RatingStub ratings = 2;
+}
+
+message OrderRequestType {
+    string orderId = 1;
+}
+
+message OrderConfirmRequestType {
+    string orderId = 1;
+    bool reject    = 2;
+}
+
+message PageRequestType {
+    int32 limit  = 1;
+    int32 offset = 2;
+}
