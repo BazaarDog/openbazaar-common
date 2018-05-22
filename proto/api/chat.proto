@@ -1,0 +1,21 @@
+syntax = "proto3";
+option go_package = "pb";
+
+
+// API call to retrieve chat conversations
+// GET {{http}}://{{url}}:{{port}}/ob/chatconversations
+
+/*
+* API call to retrieve chat messages in a specific chat conversation. General chat messages have a subject of: "".
+* limit sets the maximum number of messages that will be returned.
+* When offsetId is set to a chat message ID it will only return chat messages in the database which were received
+* after the message with that ID.
+*/
+// {{http}}://{{url}}:{{port}}/ob/chatmessages/?limit=&offsetId=&subject=
+
+
+/*
+*   API call to retrieve group chat messages, specifically those related to an order.
+*/
+// {{http}}://{{url}}:{{port}}/ob/chatmessages?limit=&offsetId=&subject=
+

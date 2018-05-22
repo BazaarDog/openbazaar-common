@@ -13,7 +13,7 @@
 Types are generated with protobufjs,
 
 ```
-    "update-types-js": "./node_modules/protobufjs/bin/pbjs -t static-module -w commonjs -o types/openbazaar.js types/proto/*.proto",
+    "update-types-js": "./node_modules/protobufjs/bin/pbjs -t static-module -w commonjs -o types/openbazaar.js proto/*.proto",
     "update-types-ts": "./node_modules/protobufjs/bin/pbts -o types/openbazaar.d.ts types/openbazaar.js",
 ```
 

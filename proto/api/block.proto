@@ -1,0 +1,17 @@
+syntax = "proto3";
+option go_package = "pb";
+
+
+//service BlockService{
+
+    // Block a node from the network. Note that this subjective blocking in that it only affects your node.
+    //rpc Block(PeerID) returns (bool) {};
+//}
+
+// POST {{http}}://{{url}}:{{port}}/ob/blocknode/
+// peerId
+
+
+// Unblock a blocked node.
+// DELETE {{http}}://{{url}}:{{port}}/ob/blocknode/
+// peerId
