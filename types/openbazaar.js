@@ -28864,6 +28864,691 @@ $root.SearchResponse = (function() {
         return Vendor;
     })();
 
+    SearchResponse.Listing = (function() {
+
+        /**
+         * Properties of a Listing.
+         * @memberof SearchResponse
+         * @interface IListing
+         * @property {string|null} [title] Listing title
+         * @property {string|null} [slug] Listing slug
+         * @property {string|null} [description] Listing description
+         * @property {Array.<string>|null} [acceptedCurrencies] Listing acceptedCurrencies
+         * @property {number|null} [averageRating] Listing averageRating
+         * @property {number|null} [ratingCount] Listing ratingCount
+         * @property {SearchResponse.ContractType|null} [contractType] Listing contractType
+         * @property {boolean|null} [nsfw] Listing nsfw
+         * @property {IImage|null} [thumbnail] Listing thumbnail
+         * @property {SearchResponse.IPrice|null} [price] Listing price
+         */
+
+        /**
+         * Constructs a new Listing.
+         * @memberof SearchResponse
+         * @classdesc Represents a Listing.
+         * @implements IListing
+         * @constructor
+         * @param {SearchResponse.IListing=} [properties] Properties to set
+         */
+        function Listing(properties) {
+            this.acceptedCurrencies = [];
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Listing title.
+         * @member {string} title
+         * @memberof SearchResponse.Listing
+         * @instance
+         */
+        Listing.prototype.title = "";
+
+        /**
+         * Listing slug.
+         * @member {string} slug
+         * @memberof SearchResponse.Listing
+         * @instance
+         */
+        Listing.prototype.slug = "";
+
+        /**
+         * Listing description.
+         * @member {string} description
+         * @memberof SearchResponse.Listing
+         * @instance
+         */
+        Listing.prototype.description = "";
+
+        /**
+         * Listing acceptedCurrencies.
+         * @member {Array.<string>} acceptedCurrencies
+         * @memberof SearchResponse.Listing
+         * @instance
+         */
+        Listing.prototype.acceptedCurrencies = $util.emptyArray;
+
+        /**
+         * Listing averageRating.
+         * @member {number} averageRating
+         * @memberof SearchResponse.Listing
+         * @instance
+         */
+        Listing.prototype.averageRating = 0;
+
+        /**
+         * Listing ratingCount.
+         * @member {number} ratingCount
+         * @memberof SearchResponse.Listing
+         * @instance
+         */
+        Listing.prototype.ratingCount = 0;
+
+        /**
+         * Listing contractType.
+         * @member {SearchResponse.ContractType} contractType
+         * @memberof SearchResponse.Listing
+         * @instance
+         */
+        Listing.prototype.contractType = 0;
+
+        /**
+         * Listing nsfw.
+         * @member {boolean} nsfw
+         * @memberof SearchResponse.Listing
+         * @instance
+         */
+        Listing.prototype.nsfw = false;
+
+        /**
+         * Listing thumbnail.
+         * @member {IImage|null|undefined} thumbnail
+         * @memberof SearchResponse.Listing
+         * @instance
+         */
+        Listing.prototype.thumbnail = null;
+
+        /**
+         * Listing price.
+         * @member {SearchResponse.IPrice|null|undefined} price
+         * @memberof SearchResponse.Listing
+         * @instance
+         */
+        Listing.prototype.price = null;
+
+        /**
+         * Creates a new Listing instance using the specified properties.
+         * @function create
+         * @memberof SearchResponse.Listing
+         * @static
+         * @param {SearchResponse.IListing=} [properties] Properties to set
+         * @returns {SearchResponse.Listing} Listing instance
+         */
+        Listing.create = function create(properties) {
+            return new Listing(properties);
+        };
+
+        /**
+         * Encodes the specified Listing message. Does not implicitly {@link SearchResponse.Listing.verify|verify} messages.
+         * @function encode
+         * @memberof SearchResponse.Listing
+         * @static
+         * @param {SearchResponse.IListing} message Listing message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Listing.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.title != null && message.hasOwnProperty("title"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.title);
+            if (message.slug != null && message.hasOwnProperty("slug"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.slug);
+            if (message.description != null && message.hasOwnProperty("description"))
+                writer.uint32(/* id 3, wireType 2 =*/26).string(message.description);
+            if (message.acceptedCurrencies != null && message.acceptedCurrencies.length)
+                for (var i = 0; i < message.acceptedCurrencies.length; ++i)
+                    writer.uint32(/* id 4, wireType 2 =*/34).string(message.acceptedCurrencies[i]);
+            if (message.averageRating != null && message.hasOwnProperty("averageRating"))
+                writer.uint32(/* id 5, wireType 0 =*/40).uint32(message.averageRating);
+            if (message.ratingCount != null && message.hasOwnProperty("ratingCount"))
+                writer.uint32(/* id 6, wireType 0 =*/48).uint32(message.ratingCount);
+            if (message.contractType != null && message.hasOwnProperty("contractType"))
+                writer.uint32(/* id 7, wireType 0 =*/56).int32(message.contractType);
+            if (message.nsfw != null && message.hasOwnProperty("nsfw"))
+                writer.uint32(/* id 8, wireType 0 =*/64).bool(message.nsfw);
+            if (message.thumbnail != null && message.hasOwnProperty("thumbnail"))
+                $root.Image.encode(message.thumbnail, writer.uint32(/* id 9, wireType 2 =*/74).fork()).ldelim();
+            if (message.price != null && message.hasOwnProperty("price"))
+                $root.SearchResponse.Price.encode(message.price, writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Listing message, length delimited. Does not implicitly {@link SearchResponse.Listing.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof SearchResponse.Listing
+         * @static
+         * @param {SearchResponse.IListing} message Listing message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Listing.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a Listing message from the specified reader or buffer.
+         * @function decode
+         * @memberof SearchResponse.Listing
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {SearchResponse.Listing} Listing
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Listing.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.SearchResponse.Listing();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.title = reader.string();
+                    break;
+                case 2:
+                    message.slug = reader.string();
+                    break;
+                case 3:
+                    message.description = reader.string();
+                    break;
+                case 4:
+                    if (!(message.acceptedCurrencies && message.acceptedCurrencies.length))
+                        message.acceptedCurrencies = [];
+                    message.acceptedCurrencies.push(reader.string());
+                    break;
+                case 5:
+                    message.averageRating = reader.uint32();
+                    break;
+                case 6:
+                    message.ratingCount = reader.uint32();
+                    break;
+                case 7:
+                    message.contractType = reader.int32();
+                    break;
+                case 8:
+                    message.nsfw = reader.bool();
+                    break;
+                case 9:
+                    message.thumbnail = $root.Image.decode(reader, reader.uint32());
+                    break;
+                case 10:
+                    message.price = $root.SearchResponse.Price.decode(reader, reader.uint32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a Listing message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof SearchResponse.Listing
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {SearchResponse.Listing} Listing
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Listing.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a Listing message.
+         * @function verify
+         * @memberof SearchResponse.Listing
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Listing.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.title != null && message.hasOwnProperty("title"))
+                if (!$util.isString(message.title))
+                    return "title: string expected";
+            if (message.slug != null && message.hasOwnProperty("slug"))
+                if (!$util.isString(message.slug))
+                    return "slug: string expected";
+            if (message.description != null && message.hasOwnProperty("description"))
+                if (!$util.isString(message.description))
+                    return "description: string expected";
+            if (message.acceptedCurrencies != null && message.hasOwnProperty("acceptedCurrencies")) {
+                if (!Array.isArray(message.acceptedCurrencies))
+                    return "acceptedCurrencies: array expected";
+                for (var i = 0; i < message.acceptedCurrencies.length; ++i)
+                    if (!$util.isString(message.acceptedCurrencies[i]))
+                        return "acceptedCurrencies: string[] expected";
+            }
+            if (message.averageRating != null && message.hasOwnProperty("averageRating"))
+                if (!$util.isInteger(message.averageRating))
+                    return "averageRating: integer expected";
+            if (message.ratingCount != null && message.hasOwnProperty("ratingCount"))
+                if (!$util.isInteger(message.ratingCount))
+                    return "ratingCount: integer expected";
+            if (message.contractType != null && message.hasOwnProperty("contractType"))
+                switch (message.contractType) {
+                default:
+                    return "contractType: enum value expected";
+                case 0:
+                case 1:
+                case 2:
+                case 3:
+                case 4:
+                    break;
+                }
+            if (message.nsfw != null && message.hasOwnProperty("nsfw"))
+                if (typeof message.nsfw !== "boolean")
+                    return "nsfw: boolean expected";
+            if (message.thumbnail != null && message.hasOwnProperty("thumbnail")) {
+                var error = $root.Image.verify(message.thumbnail);
+                if (error)
+                    return "thumbnail." + error;
+            }
+            if (message.price != null && message.hasOwnProperty("price")) {
+                var error = $root.SearchResponse.Price.verify(message.price);
+                if (error)
+                    return "price." + error;
+            }
+            return null;
+        };
+
+        /**
+         * Creates a Listing message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof SearchResponse.Listing
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {SearchResponse.Listing} Listing
+         */
+        Listing.fromObject = function fromObject(object) {
+            if (object instanceof $root.SearchResponse.Listing)
+                return object;
+            var message = new $root.SearchResponse.Listing();
+            if (object.title != null)
+                message.title = String(object.title);
+            if (object.slug != null)
+                message.slug = String(object.slug);
+            if (object.description != null)
+                message.description = String(object.description);
+            if (object.acceptedCurrencies) {
+                if (!Array.isArray(object.acceptedCurrencies))
+                    throw TypeError(".SearchResponse.Listing.acceptedCurrencies: array expected");
+                message.acceptedCurrencies = [];
+                for (var i = 0; i < object.acceptedCurrencies.length; ++i)
+                    message.acceptedCurrencies[i] = String(object.acceptedCurrencies[i]);
+            }
+            if (object.averageRating != null)
+                message.averageRating = object.averageRating >>> 0;
+            if (object.ratingCount != null)
+                message.ratingCount = object.ratingCount >>> 0;
+            switch (object.contractType) {
+            case "PHYSICAL_GOOD":
+            case 0:
+                message.contractType = 0;
+                break;
+            case "DIGITAL_GOOD":
+            case 1:
+                message.contractType = 1;
+                break;
+            case "SERVICE":
+            case 2:
+                message.contractType = 2;
+                break;
+            case "CROWD_FUND":
+            case 3:
+                message.contractType = 3;
+                break;
+            case "CRYPTOCURRENCY":
+            case 4:
+                message.contractType = 4;
+                break;
+            }
+            if (object.nsfw != null)
+                message.nsfw = Boolean(object.nsfw);
+            if (object.thumbnail != null) {
+                if (typeof object.thumbnail !== "object")
+                    throw TypeError(".SearchResponse.Listing.thumbnail: object expected");
+                message.thumbnail = $root.Image.fromObject(object.thumbnail);
+            }
+            if (object.price != null) {
+                if (typeof object.price !== "object")
+                    throw TypeError(".SearchResponse.Listing.price: object expected");
+                message.price = $root.SearchResponse.Price.fromObject(object.price);
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a Listing message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof SearchResponse.Listing
+         * @static
+         * @param {SearchResponse.Listing} message Listing
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Listing.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.arrays || options.defaults)
+                object.acceptedCurrencies = [];
+            if (options.defaults) {
+                object.title = "";
+                object.slug = "";
+                object.description = "";
+                object.averageRating = 0;
+                object.ratingCount = 0;
+                object.contractType = options.enums === String ? "PHYSICAL_GOOD" : 0;
+                object.nsfw = false;
+                object.thumbnail = null;
+                object.price = null;
+            }
+            if (message.title != null && message.hasOwnProperty("title"))
+                object.title = message.title;
+            if (message.slug != null && message.hasOwnProperty("slug"))
+                object.slug = message.slug;
+            if (message.description != null && message.hasOwnProperty("description"))
+                object.description = message.description;
+            if (message.acceptedCurrencies && message.acceptedCurrencies.length) {
+                object.acceptedCurrencies = [];
+                for (var j = 0; j < message.acceptedCurrencies.length; ++j)
+                    object.acceptedCurrencies[j] = message.acceptedCurrencies[j];
+            }
+            if (message.averageRating != null && message.hasOwnProperty("averageRating"))
+                object.averageRating = message.averageRating;
+            if (message.ratingCount != null && message.hasOwnProperty("ratingCount"))
+                object.ratingCount = message.ratingCount;
+            if (message.contractType != null && message.hasOwnProperty("contractType"))
+                object.contractType = options.enums === String ? $root.SearchResponse.ContractType[message.contractType] : message.contractType;
+            if (message.nsfw != null && message.hasOwnProperty("nsfw"))
+                object.nsfw = message.nsfw;
+            if (message.thumbnail != null && message.hasOwnProperty("thumbnail"))
+                object.thumbnail = $root.Image.toObject(message.thumbnail, options);
+            if (message.price != null && message.hasOwnProperty("price"))
+                object.price = $root.SearchResponse.Price.toObject(message.price, options);
+            return object;
+        };
+
+        /**
+         * Converts this Listing to JSON.
+         * @function toJSON
+         * @memberof SearchResponse.Listing
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Listing.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return Listing;
+    })();
+
+    SearchResponse.Price = (function() {
+
+        /**
+         * Properties of a Price.
+         * @memberof SearchResponse
+         * @interface IPrice
+         * @property {string|null} [currencyCode] Price currencyCode
+         * @property {number|Long|null} [amount] Price amount
+         */
+
+        /**
+         * Constructs a new Price.
+         * @memberof SearchResponse
+         * @classdesc Represents a Price.
+         * @implements IPrice
+         * @constructor
+         * @param {SearchResponse.IPrice=} [properties] Properties to set
+         */
+        function Price(properties) {
+            if (properties)
+                for (var keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * Price currencyCode.
+         * @member {string} currencyCode
+         * @memberof SearchResponse.Price
+         * @instance
+         */
+        Price.prototype.currencyCode = "";
+
+        /**
+         * Price amount.
+         * @member {number|Long} amount
+         * @memberof SearchResponse.Price
+         * @instance
+         */
+        Price.prototype.amount = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+        /**
+         * Creates a new Price instance using the specified properties.
+         * @function create
+         * @memberof SearchResponse.Price
+         * @static
+         * @param {SearchResponse.IPrice=} [properties] Properties to set
+         * @returns {SearchResponse.Price} Price instance
+         */
+        Price.create = function create(properties) {
+            return new Price(properties);
+        };
+
+        /**
+         * Encodes the specified Price message. Does not implicitly {@link SearchResponse.Price.verify|verify} messages.
+         * @function encode
+         * @memberof SearchResponse.Price
+         * @static
+         * @param {SearchResponse.IPrice} message Price message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Price.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.currencyCode != null && message.hasOwnProperty("currencyCode"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.currencyCode);
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.amount);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified Price message, length delimited. Does not implicitly {@link SearchResponse.Price.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof SearchResponse.Price
+         * @static
+         * @param {SearchResponse.IPrice} message Price message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        Price.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a Price message from the specified reader or buffer.
+         * @function decode
+         * @memberof SearchResponse.Price
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {SearchResponse.Price} Price
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Price.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            var end = length === undefined ? reader.len : reader.pos + length, message = new $root.SearchResponse.Price();
+            while (reader.pos < end) {
+                var tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.currencyCode = reader.string();
+                    break;
+                case 2:
+                    message.amount = reader.uint64();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a Price message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof SearchResponse.Price
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {SearchResponse.Price} Price
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        Price.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a Price message.
+         * @function verify
+         * @memberof SearchResponse.Price
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        Price.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.currencyCode != null && message.hasOwnProperty("currencyCode"))
+                if (!$util.isString(message.currencyCode))
+                    return "currencyCode: string expected";
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                if (!$util.isInteger(message.amount) && !(message.amount && $util.isInteger(message.amount.low) && $util.isInteger(message.amount.high)))
+                    return "amount: integer|Long expected";
+            return null;
+        };
+
+        /**
+         * Creates a Price message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof SearchResponse.Price
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {SearchResponse.Price} Price
+         */
+        Price.fromObject = function fromObject(object) {
+            if (object instanceof $root.SearchResponse.Price)
+                return object;
+            var message = new $root.SearchResponse.Price();
+            if (object.currencyCode != null)
+                message.currencyCode = String(object.currencyCode);
+            if (object.amount != null)
+                if ($util.Long)
+                    (message.amount = $util.Long.fromValue(object.amount)).unsigned = true;
+                else if (typeof object.amount === "string")
+                    message.amount = parseInt(object.amount, 10);
+                else if (typeof object.amount === "number")
+                    message.amount = object.amount;
+                else if (typeof object.amount === "object")
+                    message.amount = new $util.LongBits(object.amount.low >>> 0, object.amount.high >>> 0).toNumber(true);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a Price message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof SearchResponse.Price
+         * @static
+         * @param {SearchResponse.Price} message Price
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        Price.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            var object = {};
+            if (options.defaults) {
+                object.currencyCode = "";
+                if ($util.Long) {
+                    var long = new $util.Long(0, 0, true);
+                    object.amount = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                } else
+                    object.amount = options.longs === String ? "0" : 0;
+            }
+            if (message.currencyCode != null && message.hasOwnProperty("currencyCode"))
+                object.currencyCode = message.currencyCode;
+            if (message.amount != null && message.hasOwnProperty("amount"))
+                if (typeof message.amount === "number")
+                    object.amount = options.longs === String ? String(message.amount) : message.amount;
+                else
+                    object.amount = options.longs === String ? $util.Long.prototype.toString.call(message.amount) : options.longs === Number ? new $util.LongBits(message.amount.low >>> 0, message.amount.high >>> 0).toNumber(true) : message.amount;
+            return object;
+        };
+
+        /**
+         * Converts this Price to JSON.
+         * @function toJSON
+         * @memberof SearchResponse.Price
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        Price.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return Price;
+    })();
+
+    /**
+     * ContractType enum.
+     * @name SearchResponse.ContractType
+     * @enum {string}
+     * @property {number} PHYSICAL_GOOD=0 PHYSICAL_GOOD value
+     * @property {number} DIGITAL_GOOD=1 DIGITAL_GOOD value
+     * @property {number} SERVICE=2 SERVICE value
+     * @property {number} CROWD_FUND=3 CROWD_FUND value
+     * @property {number} CRYPTOCURRENCY=4 CRYPTOCURRENCY value
+     */
+    SearchResponse.ContractType = (function() {
+        var valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "PHYSICAL_GOOD"] = 0;
+        values[valuesById[1] = "DIGITAL_GOOD"] = 1;
+        values[valuesById[2] = "SERVICE"] = 2;
+        values[valuesById[3] = "CROWD_FUND"] = 3;
+        values[valuesById[4] = "CRYPTOCURRENCY"] = 4;
+        return values;
+    })();
+
     SearchResponse.VendorWrap = (function() {
 
         /**
@@ -29295,7 +29980,7 @@ $root.SearchResponse = (function() {
          * @interface ISearchResult
          * @property {string|null} [type] SearchResult type
          * @property {SearchResponse.IRelationship|null} [relationships] SearchResult relationships
-         * @property {IListing|null} [data] SearchResult data
+         * @property {SearchResponse.IListing|null} [data] SearchResult data
          */
 
         /**
@@ -29331,7 +30016,7 @@ $root.SearchResponse = (function() {
 
         /**
          * SearchResult data.
-         * @member {IListing|null|undefined} data
+         * @member {SearchResponse.IListing|null|undefined} data
          * @memberof SearchResponse.SearchResult
          * @instance
          */
@@ -29366,7 +30051,7 @@ $root.SearchResponse = (function() {
             if (message.relationships != null && message.hasOwnProperty("relationships"))
                 $root.SearchResponse.Relationship.encode(message.relationships, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
             if (message.data != null && message.hasOwnProperty("data"))
-                $root.Listing.encode(message.data, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                $root.SearchResponse.Listing.encode(message.data, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
             return writer;
         };
 
@@ -29408,7 +30093,7 @@ $root.SearchResponse = (function() {
                     message.relationships = $root.SearchResponse.Relationship.decode(reader, reader.uint32());
                     break;
                 case 3:
-                    message.data = $root.Listing.decode(reader, reader.uint32());
+                    message.data = $root.SearchResponse.Listing.decode(reader, reader.uint32());
                     break;
                 default:
                     reader.skipType(tag & 7);
@@ -29454,7 +30139,7 @@ $root.SearchResponse = (function() {
                     return "relationships." + error;
             }
             if (message.data != null && message.hasOwnProperty("data")) {
-                var error = $root.Listing.verify(message.data);
+                var error = $root.SearchResponse.Listing.verify(message.data);
                 if (error)
                     return "data." + error;
             }
@@ -29483,7 +30168,7 @@ $root.SearchResponse = (function() {
             if (object.data != null) {
                 if (typeof object.data !== "object")
                     throw TypeError(".SearchResponse.SearchResult.data: object expected");
-                message.data = $root.Listing.fromObject(object.data);
+                message.data = $root.SearchResponse.Listing.fromObject(object.data);
             }
             return message;
         };
@@ -29511,7 +30196,7 @@ $root.SearchResponse = (function() {
             if (message.relationships != null && message.hasOwnProperty("relationships"))
                 object.relationships = $root.SearchResponse.Relationship.toObject(message.relationships, options);
             if (message.data != null && message.hasOwnProperty("data"))
-                object.data = $root.Listing.toObject(message.data, options);
+                object.data = $root.SearchResponse.Listing.toObject(message.data, options);
             return object;
         };
 

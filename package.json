@@ -1,0 +1,30 @@
+{
+  "name": "openbazaar-common",
+  "version": "0.0.1",
+  "description": "Some common models, documentation and defintions for the OpenBazaar protocol",
+  "main": "index.js",
+  "directories": {
+    "doc": "doc"
+  },
+  "dependencies": {
+    "protobufjs": "^6.8.6"
+  },
+  "devDependencies": {
+    "typescript": "^2.8.3"
+  },
+  "scripts": {
+    "test": "go test",
+    "update-types-js": "./node_modules/protobufjs/bin/pbjs -t static-module -w commonjs -o types/openbazaar.js proto/*.proto",
+    "update-types-ts": "./node_modules/protobufjs/bin/pbts -o types/openbazaar.d.ts types/openbazaar.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BazaarDog/openbazaar-common.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/BazaarDog/openbazaar-common/issues"
+  },
+  "homepage": "https://github.com/BazaarDog/openbazaar-common#readme"
+}

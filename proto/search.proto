@@ -56,7 +56,34 @@ message SearchResponse {
         Image avatarHashes   = 3;
 
     }
-    message VendorWrap {
+
+    message Listing {
+        string title                       = 1;
+        string slug                        = 2;
+        string description                 = 3;
+        repeated string acceptedCurrencies = 4;
+        uint32 averageRating               = 5;
+        uint32 ratingCount                 = 6;
+        ContractType contractType          = 7;
+        bool nsfw                          = 8;
+        Image thumbnail                    = 9;
+        Price price                        = 10;
+    }
+
+    message Price {
+        string currencyCode = 1; // Letter code for currency
+        uint64 amount       = 2; // Cryptocurrency in satoshi
+    }
+
+    enum ContractType {
+        PHYSICAL_GOOD  = 0;
+        DIGITAL_GOOD   = 1;
+        SERVICE        = 2;
+        CROWD_FUND     = 3;
+        CRYPTOCURRENCY = 4;
+    }
+
+message VendorWrap {
         Vendor data = 1;
     }
     message Relationship{
