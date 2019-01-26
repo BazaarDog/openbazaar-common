@@ -2,7 +2,7 @@ syntax = "proto3";
 option go_package = "pb";
 
 
-import "proto/contract.proto";
+import "contracts.proto";
 
 message Moderator {
     string description                 = 1;
@@ -24,8 +24,8 @@ message Moderator {
     }
 
     message Price {
-        string currencyCode = 1; // Letter code for currency
-        uint64 amount       = 2; // Cryptocurrency in satoshi
+        string currencyCode = 1;
+        uint64 amount       = 2; // Bitcoins must be in satoshi
     }
 }
 

@@ -2,10 +2,10 @@ syntax = "proto3";
 option go_package = "pb";
 
 
-import "proto/contract.proto";
-import "proto/order.proto";
-import "proto/profile.proto";
-import "proto/google/protobuf/timestamp.proto";
+import "contracts.proto";
+import "orders.proto";
+import "profile.proto";
+import "google/protobuf/timestamp.proto";
 
 // This schema is used for the /ob/listing api call structure
 // We use protobuf for this instead of a basic struct because
@@ -19,13 +19,13 @@ message Coupon {
 }
 
 message OrderRespApi {
-    RicardianContract contract                            = 1; /** Order contract */
-    OrderState state                                      = 2; /** State of the order */
-    bool read                                             = 3; /** Whether or not the order has been by the vendor */
-    bool funded                                           = 4; /** Whether the order is funded */
-    uint64 unreadChatMessages                             = 5; /** number of unread chat messages associated  */
-    repeated TransactionRecord paymentAddressTransactions = 6; /** Payments funding the order */
-    TransactionRecord refundAddressTransaction            = 7; /** Refund address */
+    RicardianContract contract                            = 1;
+    OrderState state                                      = 2;
+    bool read                                             = 3;
+    bool funded                                           = 4;
+    uint64 unreadChatMessages                             = 5;
+    repeated TransactionRecord paymentAddressTransactions = 6;
+    TransactionRecord refundAddressTransaction            = 7;
 }
 
 message CaseRespApi {
@@ -35,7 +35,7 @@ message CaseRespApi {
     repeated string buyerContractValidationErrors  = 4;
     repeated string vendorContractValidationErrors = 5;
     OrderState state                               = 6;
-    bool read                                      = 7;  /** Whether or not the message has been read */
+    bool read                                      = 7;
     bool buyerOpened                               = 8;
     string claim                                   = 9;
     uint64 unreadChatMessages                      = 10;
@@ -43,7 +43,7 @@ message CaseRespApi {
 }
 
 message TransactionRecord {
-    string txid                         = 1;  /** The unique transactionRecord ID. */
+    string txid                         = 1;
     int64 value                         = 2;
     uint32 confirmations                = 3;
     uint32 height                       = 4;
@@ -51,109 +51,18 @@ message TransactionRecord {
 }
 
 message PeerAndProfile {
-    string peerId   = 1; /** The unique CIDv0 ipfs node identifer. */
+    string peerId   = 1;
     Profile profile = 2;
 }
 
 message PeerAndProfileWithID {
-    string id       = 1; /** The unique profile ID. */
-    string peerId   = 2; /** The unique CIDv0 ipfs node identifer. */
-    Profile profile = 3; /** The profile */
+    string id       = 1;
+    string peerId   = 2;
+    Profile profile = 3;
 }
 
 message RatingWithID {
-    string id       = 1;  /** The unique Rating ID. */
+    string id       = 1;
     string ratingId = 2;
     Rating rating   = 3;
-}
-
-
-
-
-service OrderService {
-
-    /** Returns a list of all moderation cases that the node was involved in. */
-    rpc ListCases(PageRequestType) returns (stream Order) {};
-
-    /** Returns a list of all sales that the node has made. */
-    rpc ListSales(PageRequestType) returns (stream Order) {};
-
-    /** Returns a list of all purchases that the node has made. */
-    rpc ListPurchases(PageRequestType) returns (stream Order) {};
-
-    /** Get an order by ID */
-    rpc GetQuote(OrderRequestType) returns (OrderResponseType) {};
-
-    /**
-      *   The purchase call can be made to a reachable or a unreachable vendor
-      *   (offline or not able to receive incoming messages).
-      *   An order will be created in the AWAITING_PAYMENT state after this call.
-      *   If the total of the purchase is not more than 4X the current transaction fee, the purchase will be rejected
-      *   (ie: if the fee is 0.0001, the total purchase must be more than 0.0004).
-      */
-    rpc Purchase(OrderRequestType) returns (OrderResponseType) {};
-
-
-
-    /**
-    *   Online orders are confirmed instantly. This API call is to confirm an order sent to the vendor
-    *   while he was offline.
-    */
-    rpc Confirm(OrderCompleteRequestType) returns (OrderResponseType) {};
-
-
-
-    /**
-    *   Send the order complete message (including the rating) to the vendor. If this is a moderated order, it will
-    *   sign and release the funds to the vendor.
-    */
-    rpc Complete(OrderCompleteRequestType) returns (OrderResponseType) {};
-
-
-    /**
-    *   Refund the order. If it's a moderated order, it will release the funds back to the buyer.
-    *   If it's direct it will send the coins from your wallet.
-    */
-    rpc RefundOrder(OrderRequestType) returns (OrderResponseType) {};
-
-    /**
-    *   Cancel an outstanding offline order. It will move the bitcoins back into your wallet.
-    */
-    rpc CancelOrder(OrderRequestType) returns (OrderResponseType) {};
-
-
-}
-
-message OrderResponseType {
-    Order order = 1;
-}
-
-message RatingStub{
-    string slug            = 1;
-    uint32 overall         = 2;
-    uint32 quality         = 3;
-    uint32 description     = 4;
-    uint32 deliverySpeed   = 5;
-    uint32 customerService = 6;
-    string review          = 7;
-    bool anonymous         = 8;
-}
-
-message OrderCompleteRequestType {
-    string orderId = 1;
-    repeated RatingStub ratings = 2;
-}
-
-message OrderRequestType {
-    string orderId = 1;
-}
-
-message OrderConfirmRequestType {
-    string orderId = 1;
-    bool reject    = 2;
-}
-
-message PageRequestType {
-    int32 limit  = 1;
-    int32 offset = 2;
 }

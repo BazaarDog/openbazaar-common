@@ -2,87 +2,75 @@ syntax = "proto3";
 option go_package = "pb";
 
 
-import "proto/google/protobuf/timestamp.proto";
-import "proto/moderator.proto";
-import "proto/image.proto";
+import "google/protobuf/timestamp.proto";
+import "moderator.proto";
 
-/**
- * A participant on the openbazaar network. Defined by a random secret (12 word seed), used to generate
- * both the root cryptocurrency address and ipfs public hash.
-*/
 message Profile {
+    string peerID                          = 1;
+    string handle                          = 2;
+    string name                            = 3;
+    string location                        = 4;
+    string about                           = 5;
+    string shortDescription                = 6;
 
-    string peerID                          = 1;  /** The unique Base58 CIDv0 ipfs node identifer, (Qm...). */
-    string handle                          = 2;  /** Distinct authoritative human-readable name (i.e. dnslink) */
-    string name                            = 3;  /** Display name of peer */
-    string location                        = 4;  /** Description of store location (100 character limit) */
-    string about                           = 5;  /** Long description with basic html markup allowed. */
-    string shortDescription                = 6;  /** Text description of peer, (160 character limit). */
+    bool nsfw                              = 7;
+    bool vendor                            = 8;
+    bool moderator                         = 9;
+    Moderator moderatorInfo                = 10;
 
-    bool nsfw                              = 7;  /** Whether the node hosts mature or adult content. */
-    bool vendor                            = 8;  /** Whether the node is operating as a vendor. */
-    bool moderator                         = 9;  /** Whether the node offers moderation as a service. */
-    Moderator moderatorInfo                = 10; /** Details of the terms and rates for moderation */
-
-    Contact contactInfo                    = 11; /** The contact info for the node. */
-    Colors colors                          = 12; /** Theme colors for the node. */
+    Contact contactInfo                    = 11;
+    Colors colors                          = 12;
 
     // The following data is added to the profile
     // automatically by the server and may be omitted
     // when setting the profile via API.
 
-    Image avatarHashes                     = 13; /** The node avatar image. (tiny: 60x60)  */
-    Image headerHashes                     = 14; /** A wide image for use as a banner. (tiny: 315x90) */
+    Image avatarHashes                     = 13;
+    Image headerHashes                     = 14;
 
-    Stats stats                            = 15; /** Aggregate node statistics, counts and averages. */
+    Stats stats                            = 15;
 
-    string bitcoinPubkey                   = 16; /** 33-bit bitcoin public key in hex */
+    string bitcoinPubkey                   = 16;
 
-    google.protobuf.Timestamp lastModified = 17; /** When the node data was last modified. */
+    google.protobuf.Timestamp lastModified = 17;
 
-    repeated string currencies             = 18; /** List of currencies the node accepts or operates with. */
+    repeated string currencies             = 18;
 
-    /**
-     * Contact information for the node.
-    */
     message Contact {
-        string website                = 1; /** Website url */
-        string email                  = 2; /** Contact email address */
-        string phoneNumber            = 3; /** Contact phone number */
-        repeated SocialAccount social = 4; /** List of social accounts. */
+        string website                = 1;
+        string email                  = 2;
+        string phoneNumber            = 3;
+        repeated SocialAccount social = 4;
     }
 
-    /**
-     * Reference to an external account
-    */
     message SocialAccount {
-        string type     = 1; /** Social media platform */
-        string username = 2; /** Handle on social media platform */
-        string proof    = 3; /** Link to proof of identity on social account */
+        string type     = 1;
+        string username = 2;
+        string proof    = 3;
     }
 
+    message Image {
+        string tiny     = 1;
+        string small    = 2;
+        string medium   = 3;
+        string large    = 4;
+        string original = 5;
+    }
 
-
-    /**
-     * Profile theme colors, not implemented. Values given in html style hex code
-    */
     message Colors {
-        string primary       = 1; /** Twitter style profile theme color, default #FFFFFF*/
-        string secondary     = 2; /** Alternate color, default #ECEEF2*/
-        string text          = 3; /** Text color, default #252525*/
-        string highlight     = 4; /** Highlight color, default #2BAD23*/
-        string highlightText = 5; /** Highlight text color, default #252525*/
+        string primary       = 1;
+        string secondary     = 2;
+        string text          = 3;
+        string highlight     = 4;
+        string highlightText = 5;
     }
 
-    /**
-     * Unverified stats maintained and provided by server for convenience.
-    */
     message Stats {
-        uint32 followerCount  = 1; /** Follower count */
-        uint32 followingCount = 2; /** Following count */
-        uint32 listingCount   = 3; /** Total active listing count */
-        uint32 ratingCount    = 4; /** Rating count */
-        uint32 postCount      = 5; /** Total number of posts */
-        float averageRating   = 6; /** Average of all 'overall ratings' */
+        uint32 followerCount  = 1;
+        uint32 followingCount = 2;
+        uint32 listingCount   = 3;
+        uint32 ratingCount    = 4;
+        uint32 postCount      = 5;
+        float averageRating   = 6;
     }
 }
