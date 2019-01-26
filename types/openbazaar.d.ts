@@ -102,22 +102,22 @@ export interface IOrderRespApi {
     /** OrderRespApi contract */
     contract?: (IRicardianContract|null);
 
-    /** Order contract */
+    /** OrderRespApi state */
     state?: (OrderState|null);
 
-    /** State of the order */
+    /** OrderRespApi read */
     read?: (boolean|null);
 
-    /** Whether or not the order has been by the vendor */
+    /** OrderRespApi funded */
     funded?: (boolean|null);
 
-    /** Whether the order is funded */
+    /** OrderRespApi unreadChatMessages */
     unreadChatMessages?: (number|Long|null);
 
-    /** number of unread chat messages associated */
+    /** OrderRespApi paymentAddressTransactions */
     paymentAddressTransactions?: (ITransactionRecord[]|null);
 
-    /** Payments funding the order */
+    /** OrderRespApi refundAddressTransaction */
     refundAddressTransaction?: (ITransactionRecord|null);
 }
 
@@ -133,22 +133,22 @@ export class OrderRespApi implements IOrderRespApi {
     /** OrderRespApi contract. */
     public contract?: (IRicardianContract|null);
 
-    /** Order contract */
+    /** OrderRespApi state. */
     public state: OrderState;
 
-    /** State of the order */
+    /** OrderRespApi read. */
     public read: boolean;
 
-    /** Whether or not the order has been by the vendor */
+    /** OrderRespApi funded. */
     public funded: boolean;
 
-    /** Whether the order is funded */
+    /** OrderRespApi unreadChatMessages. */
     public unreadChatMessages: (number|Long);
 
-    /** number of unread chat messages associated */
+    /** OrderRespApi paymentAddressTransactions. */
     public paymentAddressTransactions: ITransactionRecord[];
 
-    /** Payments funding the order */
+    /** OrderRespApi refundAddressTransaction. */
     public refundAddressTransaction?: (ITransactionRecord|null);
 
     /**
@@ -246,7 +246,7 @@ export interface ICaseRespApi {
     /** CaseRespApi read */
     read?: (boolean|null);
 
-    /** Whether or not the message has been read */
+    /** CaseRespApi buyerOpened */
     buyerOpened?: (boolean|null);
 
     /** CaseRespApi claim */
@@ -289,7 +289,7 @@ export class CaseRespApi implements ICaseRespApi {
     /** CaseRespApi read. */
     public read: boolean;
 
-    /** Whether or not the message has been read */
+    /** CaseRespApi buyerOpened. */
     public buyerOpened: boolean;
 
     /** CaseRespApi claim. */
@@ -378,7 +378,7 @@ export interface ITransactionRecord {
     /** TransactionRecord txid */
     txid?: (string|null);
 
-    /** The unique transactionRecord ID. */
+    /** TransactionRecord value */
     value?: (number|Long|null);
 
     /** TransactionRecord confirmations */
@@ -403,7 +403,7 @@ export class TransactionRecord implements ITransactionRecord {
     /** TransactionRecord txid. */
     public txid: string;
 
-    /** The unique transactionRecord ID. */
+    /** TransactionRecord value. */
     public value: (number|Long);
 
     /** TransactionRecord confirmations. */
@@ -492,7 +492,7 @@ export interface IPeerAndProfile {
     /** PeerAndProfile peerId */
     peerId?: (string|null);
 
-    /** The unique CIDv0 ipfs node identifer. */
+    /** PeerAndProfile profile */
     profile?: (IProfile|null);
 }
 
@@ -508,7 +508,7 @@ export class PeerAndProfile implements IPeerAndProfile {
     /** PeerAndProfile peerId. */
     public peerId: string;
 
-    /** The unique CIDv0 ipfs node identifer. */
+    /** PeerAndProfile profile. */
     public profile?: (IProfile|null);
 
     /**
@@ -588,10 +588,10 @@ export interface IPeerAndProfileWithID {
     /** PeerAndProfileWithID id */
     id?: (string|null);
 
-    /** The unique profile ID. */
+    /** PeerAndProfileWithID peerId */
     peerId?: (string|null);
 
-    /** The unique CIDv0 ipfs node identifer. */
+    /** PeerAndProfileWithID profile */
     profile?: (IProfile|null);
 }
 
@@ -607,10 +607,10 @@ export class PeerAndProfileWithID implements IPeerAndProfileWithID {
     /** PeerAndProfileWithID id. */
     public id: string;
 
-    /** The unique profile ID. */
+    /** PeerAndProfileWithID peerId. */
     public peerId: string;
 
-    /** The unique CIDv0 ipfs node identifer. */
+    /** PeerAndProfileWithID profile. */
     public profile?: (IProfile|null);
 
     /**
@@ -690,7 +690,7 @@ export interface IRatingWithID {
     /** RatingWithID id */
     id?: (string|null);
 
-    /** The unique Rating ID. */
+    /** RatingWithID ratingId */
     ratingId?: (string|null);
 
     /** RatingWithID rating */
@@ -709,7 +709,7 @@ export class RatingWithID implements IRatingWithID {
     /** RatingWithID id. */
     public id: string;
 
-    /** The unique Rating ID. */
+    /** RatingWithID ratingId. */
     public ratingId: string;
 
     /** RatingWithID rating. */
@@ -781,833 +781,6 @@ export class RatingWithID implements IRatingWithID {
 
     /**
      * Converts this RatingWithID to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Represents an OrderService */
-export class OrderService extends $protobuf.rpc.Service {
-
-    /**
-     * Constructs a new OrderService service.
-     * @param rpcImpl RPC implementation
-     * @param [requestDelimited=false] Whether requests are length-delimited
-     * @param [responseDelimited=false] Whether responses are length-delimited
-     */
-    constructor(rpcImpl: $protobuf.RPCImpl, requestDelimited?: boolean, responseDelimited?: boolean);
-
-    /**
-     * Creates new OrderService service using the specified rpc implementation.
-     * @param rpcImpl RPC implementation
-     * @param [requestDelimited=false] Whether requests are length-delimited
-     * @param [responseDelimited=false] Whether responses are length-delimited
-     * @returns RPC service. Useful where requests and/or responses are streamed.
-     */
-    public static create(rpcImpl: $protobuf.RPCImpl, requestDelimited?: boolean, responseDelimited?: boolean): OrderService;
-
-    /**
-     * Returns a list of all moderation cases that the node was involved in.
-     * @param request PageRequestType message or plain object
-     * @param callback Node-style callback called with the error, if any, and Order
-     */
-    public listCases(request: IPageRequestType, callback: OrderService.ListCasesCallback): void;
-
-    /**
-     * Returns a list of all moderation cases that the node was involved in.
-     * @param request PageRequestType message or plain object
-     * @returns Promise
-     */
-    public listCases(request: IPageRequestType): Promise<Order>;
-
-    /**
-     * Returns a list of all sales that the node has made.
-     * @param request PageRequestType message or plain object
-     * @param callback Node-style callback called with the error, if any, and Order
-     */
-    public listSales(request: IPageRequestType, callback: OrderService.ListSalesCallback): void;
-
-    /**
-     * Returns a list of all sales that the node has made.
-     * @param request PageRequestType message or plain object
-     * @returns Promise
-     */
-    public listSales(request: IPageRequestType): Promise<Order>;
-
-    /**
-     * Returns a list of all purchases that the node has made.
-     * @param request PageRequestType message or plain object
-     * @param callback Node-style callback called with the error, if any, and Order
-     */
-    public listPurchases(request: IPageRequestType, callback: OrderService.ListPurchasesCallback): void;
-
-    /**
-     * Returns a list of all purchases that the node has made.
-     * @param request PageRequestType message or plain object
-     * @returns Promise
-     */
-    public listPurchases(request: IPageRequestType): Promise<Order>;
-
-    /**
-     * Get an order by ID
-     * @param request OrderRequestType message or plain object
-     * @param callback Node-style callback called with the error, if any, and OrderResponseType
-     */
-    public getQuote(request: IOrderRequestType, callback: OrderService.GetQuoteCallback): void;
-
-    /**
-     * Get an order by ID
-     * @param request OrderRequestType message or plain object
-     * @returns Promise
-     */
-    public getQuote(request: IOrderRequestType): Promise<OrderResponseType>;
-
-    /**
-     * The purchase call can be made to a reachable or a unreachable vendor
-     * (offline or not able to receive incoming messages).
-     * An order will be created in the AWAITING_PAYMENT state after this call.
-     * If the total of the purchase is not more than 4X the current transaction fee, the purchase will be rejected
-     * (ie: if the fee is 0.0001, the total purchase must be more than 0.0004).
-     * @param request OrderRequestType message or plain object
-     * @param callback Node-style callback called with the error, if any, and OrderResponseType
-     */
-    public purchase(request: IOrderRequestType, callback: OrderService.PurchaseCallback): void;
-
-    /**
-     * The purchase call can be made to a reachable or a unreachable vendor
-     * (offline or not able to receive incoming messages).
-     * An order will be created in the AWAITING_PAYMENT state after this call.
-     * If the total of the purchase is not more than 4X the current transaction fee, the purchase will be rejected
-     * (ie: if the fee is 0.0001, the total purchase must be more than 0.0004).
-     * @param request OrderRequestType message or plain object
-     * @returns Promise
-     */
-    public purchase(request: IOrderRequestType): Promise<OrderResponseType>;
-
-    /**
-     * Online orders are confirmed instantly. This API call is to confirm an order sent to the vendor
-     * while he was offline.
-     * @param request OrderCompleteRequestType message or plain object
-     * @param callback Node-style callback called with the error, if any, and OrderResponseType
-     */
-    public confirm(request: IOrderCompleteRequestType, callback: OrderService.ConfirmCallback): void;
-
-    /**
-     * Online orders are confirmed instantly. This API call is to confirm an order sent to the vendor
-     * while he was offline.
-     * @param request OrderCompleteRequestType message or plain object
-     * @returns Promise
-     */
-    public confirm(request: IOrderCompleteRequestType): Promise<OrderResponseType>;
-
-    /**
-     * Send the order complete message (including the rating) to the vendor. If this is a moderated order, it will
-     * sign and release the funds to the vendor.
-     * @param request OrderCompleteRequestType message or plain object
-     * @param callback Node-style callback called with the error, if any, and OrderResponseType
-     */
-    public complete(request: IOrderCompleteRequestType, callback: OrderService.CompleteCallback): void;
-
-    /**
-     * Send the order complete message (including the rating) to the vendor. If this is a moderated order, it will
-     * sign and release the funds to the vendor.
-     * @param request OrderCompleteRequestType message or plain object
-     * @returns Promise
-     */
-    public complete(request: IOrderCompleteRequestType): Promise<OrderResponseType>;
-
-    /**
-     * Refund the order. If it's a moderated order, it will release the funds back to the buyer.
-     * If it's direct it will send the coins from your wallet.
-     * @param request OrderRequestType message or plain object
-     * @param callback Node-style callback called with the error, if any, and OrderResponseType
-     */
-    public refundOrder(request: IOrderRequestType, callback: OrderService.RefundOrderCallback): void;
-
-    /**
-     * Refund the order. If it's a moderated order, it will release the funds back to the buyer.
-     * If it's direct it will send the coins from your wallet.
-     * @param request OrderRequestType message or plain object
-     * @returns Promise
-     */
-    public refundOrder(request: IOrderRequestType): Promise<OrderResponseType>;
-
-    /**
-     * Cancel an outstanding offline order. It will move the bitcoins back into your wallet.
-     * @param request OrderRequestType message or plain object
-     * @param callback Node-style callback called with the error, if any, and OrderResponseType
-     */
-    public cancelOrder(request: IOrderRequestType, callback: OrderService.CancelOrderCallback): void;
-
-    /**
-     * Cancel an outstanding offline order. It will move the bitcoins back into your wallet.
-     * @param request OrderRequestType message or plain object
-     * @returns Promise
-     */
-    public cancelOrder(request: IOrderRequestType): Promise<OrderResponseType>;
-}
-
-export namespace OrderService {
-
-    /**
-     * Callback as used by {@link OrderService#listCases}.
-     * @param error Error, if any
-     * @param [response] Order
-     */
-    type ListCasesCallback = (error: (Error|null), response?: Order) => void;
-
-    /**
-     * Callback as used by {@link OrderService#listSales}.
-     * @param error Error, if any
-     * @param [response] Order
-     */
-    type ListSalesCallback = (error: (Error|null), response?: Order) => void;
-
-    /**
-     * Callback as used by {@link OrderService#listPurchases}.
-     * @param error Error, if any
-     * @param [response] Order
-     */
-    type ListPurchasesCallback = (error: (Error|null), response?: Order) => void;
-
-    /**
-     * Callback as used by {@link OrderService#getQuote}.
-     * @param error Error, if any
-     * @param [response] OrderResponseType
-     */
-    type GetQuoteCallback = (error: (Error|null), response?: OrderResponseType) => void;
-
-    /**
-     * Callback as used by {@link OrderService#purchase}.
-     * @param error Error, if any
-     * @param [response] OrderResponseType
-     */
-    type PurchaseCallback = (error: (Error|null), response?: OrderResponseType) => void;
-
-    /**
-     * Callback as used by {@link OrderService#confirm}.
-     * @param error Error, if any
-     * @param [response] OrderResponseType
-     */
-    type ConfirmCallback = (error: (Error|null), response?: OrderResponseType) => void;
-
-    /**
-     * Callback as used by {@link OrderService#complete}.
-     * @param error Error, if any
-     * @param [response] OrderResponseType
-     */
-    type CompleteCallback = (error: (Error|null), response?: OrderResponseType) => void;
-
-    /**
-     * Callback as used by {@link OrderService#refundOrder}.
-     * @param error Error, if any
-     * @param [response] OrderResponseType
-     */
-    type RefundOrderCallback = (error: (Error|null), response?: OrderResponseType) => void;
-
-    /**
-     * Callback as used by {@link OrderService#cancelOrder}.
-     * @param error Error, if any
-     * @param [response] OrderResponseType
-     */
-    type CancelOrderCallback = (error: (Error|null), response?: OrderResponseType) => void;
-}
-
-/** Properties of an OrderResponseType. */
-export interface IOrderResponseType {
-
-    /** OrderResponseType order */
-    order?: (IOrder|null);
-}
-
-/** Represents an OrderResponseType. */
-export class OrderResponseType implements IOrderResponseType {
-
-    /**
-     * Constructs a new OrderResponseType.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IOrderResponseType);
-
-    /** OrderResponseType order. */
-    public order?: (IOrder|null);
-
-    /**
-     * Creates a new OrderResponseType instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns OrderResponseType instance
-     */
-    public static create(properties?: IOrderResponseType): OrderResponseType;
-
-    /**
-     * Encodes the specified OrderResponseType message. Does not implicitly {@link OrderResponseType.verify|verify} messages.
-     * @param message OrderResponseType message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IOrderResponseType, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified OrderResponseType message, length delimited. Does not implicitly {@link OrderResponseType.verify|verify} messages.
-     * @param message OrderResponseType message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IOrderResponseType, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes an OrderResponseType message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns OrderResponseType
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): OrderResponseType;
-
-    /**
-     * Decodes an OrderResponseType message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns OrderResponseType
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): OrderResponseType;
-
-    /**
-     * Verifies an OrderResponseType message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates an OrderResponseType message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns OrderResponseType
-     */
-    public static fromObject(object: { [k: string]: any }): OrderResponseType;
-
-    /**
-     * Creates a plain object from an OrderResponseType message. Also converts values to other types if specified.
-     * @param message OrderResponseType
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: OrderResponseType, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this OrderResponseType to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Properties of a RatingStub. */
-export interface IRatingStub {
-
-    /** RatingStub slug */
-    slug?: (string|null);
-
-    /** RatingStub overall */
-    overall?: (number|null);
-
-    /** RatingStub quality */
-    quality?: (number|null);
-
-    /** RatingStub description */
-    description?: (number|null);
-
-    /** RatingStub deliverySpeed */
-    deliverySpeed?: (number|null);
-
-    /** RatingStub customerService */
-    customerService?: (number|null);
-
-    /** RatingStub review */
-    review?: (string|null);
-
-    /** RatingStub anonymous */
-    anonymous?: (boolean|null);
-}
-
-/** Represents a RatingStub. */
-export class RatingStub implements IRatingStub {
-
-    /**
-     * Constructs a new RatingStub.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IRatingStub);
-
-    /** RatingStub slug. */
-    public slug: string;
-
-    /** RatingStub overall. */
-    public overall: number;
-
-    /** RatingStub quality. */
-    public quality: number;
-
-    /** RatingStub description. */
-    public description: number;
-
-    /** RatingStub deliverySpeed. */
-    public deliverySpeed: number;
-
-    /** RatingStub customerService. */
-    public customerService: number;
-
-    /** RatingStub review. */
-    public review: string;
-
-    /** RatingStub anonymous. */
-    public anonymous: boolean;
-
-    /**
-     * Creates a new RatingStub instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns RatingStub instance
-     */
-    public static create(properties?: IRatingStub): RatingStub;
-
-    /**
-     * Encodes the specified RatingStub message. Does not implicitly {@link RatingStub.verify|verify} messages.
-     * @param message RatingStub message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IRatingStub, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified RatingStub message, length delimited. Does not implicitly {@link RatingStub.verify|verify} messages.
-     * @param message RatingStub message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IRatingStub, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a RatingStub message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns RatingStub
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): RatingStub;
-
-    /**
-     * Decodes a RatingStub message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns RatingStub
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): RatingStub;
-
-    /**
-     * Verifies a RatingStub message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a RatingStub message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns RatingStub
-     */
-    public static fromObject(object: { [k: string]: any }): RatingStub;
-
-    /**
-     * Creates a plain object from a RatingStub message. Also converts values to other types if specified.
-     * @param message RatingStub
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: RatingStub, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this RatingStub to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Properties of an OrderCompleteRequestType. */
-export interface IOrderCompleteRequestType {
-
-    /** OrderCompleteRequestType orderId */
-    orderId?: (string|null);
-
-    /** OrderCompleteRequestType ratings */
-    ratings?: (IRatingStub[]|null);
-}
-
-/** Represents an OrderCompleteRequestType. */
-export class OrderCompleteRequestType implements IOrderCompleteRequestType {
-
-    /**
-     * Constructs a new OrderCompleteRequestType.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IOrderCompleteRequestType);
-
-    /** OrderCompleteRequestType orderId. */
-    public orderId: string;
-
-    /** OrderCompleteRequestType ratings. */
-    public ratings: IRatingStub[];
-
-    /**
-     * Creates a new OrderCompleteRequestType instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns OrderCompleteRequestType instance
-     */
-    public static create(properties?: IOrderCompleteRequestType): OrderCompleteRequestType;
-
-    /**
-     * Encodes the specified OrderCompleteRequestType message. Does not implicitly {@link OrderCompleteRequestType.verify|verify} messages.
-     * @param message OrderCompleteRequestType message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IOrderCompleteRequestType, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified OrderCompleteRequestType message, length delimited. Does not implicitly {@link OrderCompleteRequestType.verify|verify} messages.
-     * @param message OrderCompleteRequestType message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IOrderCompleteRequestType, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes an OrderCompleteRequestType message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns OrderCompleteRequestType
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): OrderCompleteRequestType;
-
-    /**
-     * Decodes an OrderCompleteRequestType message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns OrderCompleteRequestType
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): OrderCompleteRequestType;
-
-    /**
-     * Verifies an OrderCompleteRequestType message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates an OrderCompleteRequestType message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns OrderCompleteRequestType
-     */
-    public static fromObject(object: { [k: string]: any }): OrderCompleteRequestType;
-
-    /**
-     * Creates a plain object from an OrderCompleteRequestType message. Also converts values to other types if specified.
-     * @param message OrderCompleteRequestType
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: OrderCompleteRequestType, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this OrderCompleteRequestType to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Properties of an OrderRequestType. */
-export interface IOrderRequestType {
-
-    /** OrderRequestType orderId */
-    orderId?: (string|null);
-}
-
-/** Represents an OrderRequestType. */
-export class OrderRequestType implements IOrderRequestType {
-
-    /**
-     * Constructs a new OrderRequestType.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IOrderRequestType);
-
-    /** OrderRequestType orderId. */
-    public orderId: string;
-
-    /**
-     * Creates a new OrderRequestType instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns OrderRequestType instance
-     */
-    public static create(properties?: IOrderRequestType): OrderRequestType;
-
-    /**
-     * Encodes the specified OrderRequestType message. Does not implicitly {@link OrderRequestType.verify|verify} messages.
-     * @param message OrderRequestType message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IOrderRequestType, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified OrderRequestType message, length delimited. Does not implicitly {@link OrderRequestType.verify|verify} messages.
-     * @param message OrderRequestType message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IOrderRequestType, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes an OrderRequestType message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns OrderRequestType
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): OrderRequestType;
-
-    /**
-     * Decodes an OrderRequestType message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns OrderRequestType
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): OrderRequestType;
-
-    /**
-     * Verifies an OrderRequestType message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates an OrderRequestType message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns OrderRequestType
-     */
-    public static fromObject(object: { [k: string]: any }): OrderRequestType;
-
-    /**
-     * Creates a plain object from an OrderRequestType message. Also converts values to other types if specified.
-     * @param message OrderRequestType
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: OrderRequestType, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this OrderRequestType to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Properties of an OrderConfirmRequestType. */
-export interface IOrderConfirmRequestType {
-
-    /** OrderConfirmRequestType orderId */
-    orderId?: (string|null);
-
-    /** OrderConfirmRequestType reject */
-    reject?: (boolean|null);
-}
-
-/** Represents an OrderConfirmRequestType. */
-export class OrderConfirmRequestType implements IOrderConfirmRequestType {
-
-    /**
-     * Constructs a new OrderConfirmRequestType.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IOrderConfirmRequestType);
-
-    /** OrderConfirmRequestType orderId. */
-    public orderId: string;
-
-    /** OrderConfirmRequestType reject. */
-    public reject: boolean;
-
-    /**
-     * Creates a new OrderConfirmRequestType instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns OrderConfirmRequestType instance
-     */
-    public static create(properties?: IOrderConfirmRequestType): OrderConfirmRequestType;
-
-    /**
-     * Encodes the specified OrderConfirmRequestType message. Does not implicitly {@link OrderConfirmRequestType.verify|verify} messages.
-     * @param message OrderConfirmRequestType message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IOrderConfirmRequestType, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified OrderConfirmRequestType message, length delimited. Does not implicitly {@link OrderConfirmRequestType.verify|verify} messages.
-     * @param message OrderConfirmRequestType message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IOrderConfirmRequestType, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes an OrderConfirmRequestType message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns OrderConfirmRequestType
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): OrderConfirmRequestType;
-
-    /**
-     * Decodes an OrderConfirmRequestType message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns OrderConfirmRequestType
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): OrderConfirmRequestType;
-
-    /**
-     * Verifies an OrderConfirmRequestType message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates an OrderConfirmRequestType message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns OrderConfirmRequestType
-     */
-    public static fromObject(object: { [k: string]: any }): OrderConfirmRequestType;
-
-    /**
-     * Creates a plain object from an OrderConfirmRequestType message. Also converts values to other types if specified.
-     * @param message OrderConfirmRequestType
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: OrderConfirmRequestType, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this OrderConfirmRequestType to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** Properties of a PageRequestType. */
-export interface IPageRequestType {
-
-    /** PageRequestType limit */
-    limit?: (number|null);
-
-    /** PageRequestType offset */
-    offset?: (number|null);
-}
-
-/** Represents a PageRequestType. */
-export class PageRequestType implements IPageRequestType {
-
-    /**
-     * Constructs a new PageRequestType.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IPageRequestType);
-
-    /** PageRequestType limit. */
-    public limit: number;
-
-    /** PageRequestType offset. */
-    public offset: number;
-
-    /**
-     * Creates a new PageRequestType instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns PageRequestType instance
-     */
-    public static create(properties?: IPageRequestType): PageRequestType;
-
-    /**
-     * Encodes the specified PageRequestType message. Does not implicitly {@link PageRequestType.verify|verify} messages.
-     * @param message PageRequestType message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IPageRequestType, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified PageRequestType message, length delimited. Does not implicitly {@link PageRequestType.verify|verify} messages.
-     * @param message PageRequestType message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IPageRequestType, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a PageRequestType message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns PageRequestType
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): PageRequestType;
-
-    /**
-     * Decodes a PageRequestType message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns PageRequestType
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): PageRequestType;
-
-    /**
-     * Verifies a PageRequestType message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a PageRequestType message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns PageRequestType
-     */
-    public static fromObject(object: { [k: string]: any }): PageRequestType;
-
-    /**
-     * Creates a plain object from a PageRequestType message. Also converts values to other types if specified.
-     * @param message PageRequestType
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: PageRequestType, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this PageRequestType to JSON.
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
@@ -1941,6 +1114,9 @@ export namespace Listing {
 
         /** Metadata coinDivisibility */
         coinDivisibility?: (number|null);
+
+        /** Metadata priceModifier */
+        priceModifier?: (number|null);
     }
 
     /** Represents a Metadata. */
@@ -1981,6 +1157,9 @@ export namespace Listing {
 
         /** Metadata coinDivisibility. */
         public coinDivisibility: number;
+
+        /** Metadata priceModifier. */
+        public priceModifier: number;
 
         /**
          * Creates a new Metadata instance using the specified properties.
@@ -2086,19 +1265,19 @@ export namespace Listing {
         /** Item price */
         price?: (number|Long|null);
 
-        /** The price in ..... tk */
+        /** Item nsfw */
         nsfw?: (boolean|null);
 
-        /** Whether the listing contains mature or adult content. */
+        /** Item tags */
         tags?: (string[]|null);
 
-        /** A list of tags */
-        images?: (IImage[]|null);
+        /** Item images */
+        images?: (Listing.Item.IImage[]|null);
 
-        /** A list of images for the item. (tiny: 90x90) */
+        /** Item categories */
         categories?: (string[]|null);
 
-        /** A list of categories to organize listings within store */
+        /** Item grams */
         grams?: (number|null);
 
         /** Item condition */
@@ -2132,19 +1311,19 @@ export namespace Listing {
         /** Item price. */
         public price: (number|Long);
 
-        /** The price in ..... tk */
+        /** Item nsfw. */
         public nsfw: boolean;
 
-        /** Whether the listing contains mature or adult content. */
+        /** Item tags. */
         public tags: string[];
 
-        /** A list of tags */
-        public images: IImage[];
+        /** Item images. */
+        public images: Listing.Item.IImage[];
 
-        /** A list of images for the item. (tiny: 90x90) */
+        /** Item categories. */
         public categories: string[];
 
-        /** A list of categories to organize listings within store */
+        /** Item grams. */
         public grams: number;
 
         /** Item condition. */
@@ -2340,7 +1519,7 @@ export namespace Listing {
                 name?: (string|null);
 
                 /** Variant image */
-                image?: (IImage|null);
+                image?: (Listing.Item.IImage|null);
             }
 
             /** Represents a Variant. */
@@ -2356,7 +1535,7 @@ export namespace Listing {
                 public name: string;
 
                 /** Variant image. */
-                public image?: (IImage|null);
+                public image?: (Listing.Item.IImage|null);
 
                 /**
                  * Creates a new Variant instance using the specified properties.
@@ -2533,6 +1712,126 @@ export namespace Listing {
 
             /**
              * Converts this Sku to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
+
+        /** Properties of an Image. */
+        interface IImage {
+
+            /** Image filename */
+            filename?: (string|null);
+
+            /** Image original */
+            original?: (string|null);
+
+            /** Image large */
+            large?: (string|null);
+
+            /** Image medium */
+            medium?: (string|null);
+
+            /** Image small */
+            small?: (string|null);
+
+            /** Image tiny */
+            tiny?: (string|null);
+        }
+
+        /** Represents an Image. */
+        class Image implements IImage {
+
+            /**
+             * Constructs a new Image.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: Listing.Item.IImage);
+
+            /** Image filename. */
+            public filename: string;
+
+            /** Image original. */
+            public original: string;
+
+            /** Image large. */
+            public large: string;
+
+            /** Image medium. */
+            public medium: string;
+
+            /** Image small. */
+            public small: string;
+
+            /** Image tiny. */
+            public tiny: string;
+
+            /**
+             * Creates a new Image instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns Image instance
+             */
+            public static create(properties?: Listing.Item.IImage): Listing.Item.Image;
+
+            /**
+             * Encodes the specified Image message. Does not implicitly {@link Listing.Item.Image.verify|verify} messages.
+             * @param message Image message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: Listing.Item.IImage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified Image message, length delimited. Does not implicitly {@link Listing.Item.Image.verify|verify} messages.
+             * @param message Image message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: Listing.Item.IImage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes an Image message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns Image
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Listing.Item.Image;
+
+            /**
+             * Decodes an Image message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns Image
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Listing.Item.Image;
+
+            /**
+             * Verifies an Image message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates an Image message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns Image
+             */
+            public static fromObject(object: { [k: string]: any }): Listing.Item.Image;
+
+            /**
+             * Creates a plain object from an Image message. Also converts values to other types if specified.
+             * @param message Image
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: Listing.Item.Image, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this Image to JSON.
              * @returns JSON object
              */
             public toJSON(): { [k: string]: any };
@@ -3615,6 +2914,9 @@ export namespace Order {
 
         /** Payment moderatorKey */
         moderatorKey?: (Uint8Array|null);
+
+        /** Payment coin */
+        coin?: (string|null);
     }
 
     /** Represents a Payment. */
@@ -3646,6 +2948,9 @@ export namespace Order {
 
         /** Payment moderatorKey. */
         public moderatorKey: Uint8Array;
+
+        /** Payment coin. */
+        public coin: string;
 
         /**
          * Creates a new Payment instance using the specified properties.
@@ -4059,7 +3364,7 @@ export namespace RatingSignature {
         listingTitle?: (string|null);
 
         /** TransactionMetadata thumbnail */
-        thumbnail?: (IImage|null);
+        thumbnail?: (RatingSignature.TransactionMetadata.IImage|null);
     }
 
     /** Represents a TransactionMetadata. */
@@ -4084,7 +3389,7 @@ export namespace RatingSignature {
         public listingTitle: string;
 
         /** TransactionMetadata thumbnail. */
-        public thumbnail?: (IImage|null);
+        public thumbnail?: (RatingSignature.TransactionMetadata.IImage|null);
 
         /**
          * Creates a new TransactionMetadata instance using the specified properties.
@@ -4155,6 +3460,123 @@ export namespace RatingSignature {
          * @returns JSON object
          */
         public toJSON(): { [k: string]: any };
+    }
+
+    namespace TransactionMetadata {
+
+        /** Properties of an Image. */
+        interface IImage {
+
+            /** Image tiny */
+            tiny?: (string|null);
+
+            /** Image small */
+            small?: (string|null);
+
+            /** Image medium */
+            medium?: (string|null);
+
+            /** Image large */
+            large?: (string|null);
+
+            /** Image original */
+            original?: (string|null);
+        }
+
+        /** Represents an Image. */
+        class Image implements IImage {
+
+            /**
+             * Constructs a new Image.
+             * @param [properties] Properties to set
+             */
+            constructor(properties?: RatingSignature.TransactionMetadata.IImage);
+
+            /** Image tiny. */
+            public tiny: string;
+
+            /** Image small. */
+            public small: string;
+
+            /** Image medium. */
+            public medium: string;
+
+            /** Image large. */
+            public large: string;
+
+            /** Image original. */
+            public original: string;
+
+            /**
+             * Creates a new Image instance using the specified properties.
+             * @param [properties] Properties to set
+             * @returns Image instance
+             */
+            public static create(properties?: RatingSignature.TransactionMetadata.IImage): RatingSignature.TransactionMetadata.Image;
+
+            /**
+             * Encodes the specified Image message. Does not implicitly {@link RatingSignature.TransactionMetadata.Image.verify|verify} messages.
+             * @param message Image message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encode(message: RatingSignature.TransactionMetadata.IImage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Encodes the specified Image message, length delimited. Does not implicitly {@link RatingSignature.TransactionMetadata.Image.verify|verify} messages.
+             * @param message Image message or plain object to encode
+             * @param [writer] Writer to encode to
+             * @returns Writer
+             */
+            public static encodeDelimited(message: RatingSignature.TransactionMetadata.IImage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+            /**
+             * Decodes an Image message from the specified reader or buffer.
+             * @param reader Reader or buffer to decode from
+             * @param [length] Message length if known beforehand
+             * @returns Image
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): RatingSignature.TransactionMetadata.Image;
+
+            /**
+             * Decodes an Image message from the specified reader or buffer, length delimited.
+             * @param reader Reader or buffer to decode from
+             * @returns Image
+             * @throws {Error} If the payload is not a reader or valid buffer
+             * @throws {$protobuf.util.ProtocolError} If required fields are missing
+             */
+            public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): RatingSignature.TransactionMetadata.Image;
+
+            /**
+             * Verifies an Image message.
+             * @param message Plain object to verify
+             * @returns `null` if valid, otherwise the reason why it is not
+             */
+            public static verify(message: { [k: string]: any }): (string|null);
+
+            /**
+             * Creates an Image message from a plain object. Also converts values to their respective internal types.
+             * @param object Plain object
+             * @returns Image
+             */
+            public static fromObject(object: { [k: string]: any }): RatingSignature.TransactionMetadata.Image;
+
+            /**
+             * Creates a plain object from an Image message. Also converts values to other types if specified.
+             * @param message Image
+             * @param [options] Conversion options
+             * @returns Plain object
+             */
+            public static toObject(message: RatingSignature.TransactionMetadata.Image, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+            /**
+             * Converts this Image to JSON.
+             * @returns JSON object
+             */
+            public toJSON(): { [k: string]: any };
+        }
     }
 }
 
@@ -5512,6 +4934,9 @@ export namespace DisputeResolution {
             /** Output script */
             script?: (string|null);
 
+            /** Output address */
+            address?: (string|null);
+
             /** Output amount */
             amount?: (number|Long|null);
         }
@@ -5528,8 +4953,14 @@ export namespace DisputeResolution {
             /** Output script. */
             public script: string;
 
+            /** Output address. */
+            public address: string;
+
             /** Output amount. */
             public amount: (number|Long);
+
+            /** Output scriptOrAddress. */
+            public scriptOrAddress?: ("script"|"address");
 
             /**
              * Creates a new Output instance using the specified properties.
@@ -6013,6 +5444,96 @@ export namespace Refund {
          */
         public toJSON(): { [k: string]: any };
     }
+}
+
+/** Properties of a VendorFinalizedPayment. */
+export interface IVendorFinalizedPayment {
+
+    /** VendorFinalizedPayment orderID */
+    orderID?: (string|null);
+}
+
+/** Represents a VendorFinalizedPayment. */
+export class VendorFinalizedPayment implements IVendorFinalizedPayment {
+
+    /**
+     * Constructs a new VendorFinalizedPayment.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: IVendorFinalizedPayment);
+
+    /** VendorFinalizedPayment orderID. */
+    public orderID: string;
+
+    /**
+     * Creates a new VendorFinalizedPayment instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns VendorFinalizedPayment instance
+     */
+    public static create(properties?: IVendorFinalizedPayment): VendorFinalizedPayment;
+
+    /**
+     * Encodes the specified VendorFinalizedPayment message. Does not implicitly {@link VendorFinalizedPayment.verify|verify} messages.
+     * @param message VendorFinalizedPayment message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: IVendorFinalizedPayment, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified VendorFinalizedPayment message, length delimited. Does not implicitly {@link VendorFinalizedPayment.verify|verify} messages.
+     * @param message VendorFinalizedPayment message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: IVendorFinalizedPayment, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes a VendorFinalizedPayment message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns VendorFinalizedPayment
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): VendorFinalizedPayment;
+
+    /**
+     * Decodes a VendorFinalizedPayment message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns VendorFinalizedPayment
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): VendorFinalizedPayment;
+
+    /**
+     * Verifies a VendorFinalizedPayment message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates a VendorFinalizedPayment message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns VendorFinalizedPayment
+     */
+    public static fromObject(object: { [k: string]: any }): VendorFinalizedPayment;
+
+    /**
+     * Creates a plain object from a VendorFinalizedPayment message. Also converts values to other types if specified.
+     * @param message VendorFinalizedPayment
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: VendorFinalizedPayment, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this VendorFinalizedPayment to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
 }
 
 /** Properties of a ID. */
@@ -6649,6 +6170,7 @@ export enum CountryCode {
     SUDAN = 209,
     SURINAME = 210,
     SVALBARD = 211,
+    ESWATINI = 212,
     SWAZILAND = 212,
     SWEDEN = 213,
     SWITZERLAND = 214,
@@ -6684,6 +6206,7 @@ export enum CountryCode {
     YEMEN = 244,
     ZAMBIA = 245,
     ZIMBABWE = 246,
+    UNITED_STATES_MINOR_ISLANDS = 247,
     ALL = 500,
     AFRICA = 501,
     ASIA = 502,
@@ -6695,109 +6218,1206 @@ export enum CountryCode {
     OCEANIA = 508
 }
 
-/** Properties of an Image. */
-export interface IImage {
-
-    /** Image tiny */
-    tiny?: (string|null);
-
-    /** Image resource at smallest size, given by CIDv1 hash */
-    small?: (string|null);
-
-    /** The CIDv1 hash of the image resource with double the dimensions of tiny version. */
-    medium?: (string|null);
-
-    /** Double the size of small image */
-    large?: (string|null);
+/** OrderState enum. */
+export enum OrderState {
+    PENDING = 0,
+    AWAITING_PAYMENT = 1,
+    AWAITING_PICKUP = 2,
+    AWAITING_FULFILLMENT = 3,
+    PARTIALLY_FULFILLED = 4,
+    FULFILLED = 5,
+    COMPLETED = 6,
+    CANCELED = 7,
+    DECLINED = 8,
+    REFUNDED = 9,
+    DISPUTED = 10,
+    DECIDED = 11,
+    RESOLVED = 12,
+    PAYMENT_FINALIZED = 13,
+    PROCESSING_ERROR = 14
 }
 
-/** Represents an Image. */
-export class Image implements IImage {
+/** Properties of a Profile. */
+export interface IProfile {
+
+    /** Profile peerID */
+    peerID?: (string|null);
+
+    /** Profile handle */
+    handle?: (string|null);
+
+    /** Profile name */
+    name?: (string|null);
+
+    /** Profile location */
+    location?: (string|null);
+
+    /** Profile about */
+    about?: (string|null);
+
+    /** Profile shortDescription */
+    shortDescription?: (string|null);
+
+    /** Profile nsfw */
+    nsfw?: (boolean|null);
+
+    /** Profile vendor */
+    vendor?: (boolean|null);
+
+    /** Profile moderator */
+    moderator?: (boolean|null);
+
+    /** Profile moderatorInfo */
+    moderatorInfo?: (IModerator|null);
+
+    /** Profile contactInfo */
+    contactInfo?: (Profile.IContact|null);
+
+    /** Profile colors */
+    colors?: (Profile.IColors|null);
+
+    /** Profile avatarHashes */
+    avatarHashes?: (Profile.IImage|null);
+
+    /** Profile headerHashes */
+    headerHashes?: (Profile.IImage|null);
+
+    /** Profile stats */
+    stats?: (Profile.IStats|null);
+
+    /** Profile bitcoinPubkey */
+    bitcoinPubkey?: (string|null);
+
+    /** Profile lastModified */
+    lastModified?: (google.protobuf.ITimestamp|null);
+
+    /** Profile currencies */
+    currencies?: (string[]|null);
+}
+
+/** Represents a Profile. */
+export class Profile implements IProfile {
 
     /**
-     * Constructs a new Image.
+     * Constructs a new Profile.
      * @param [properties] Properties to set
      */
-    constructor(properties?: IImage);
+    constructor(properties?: IProfile);
 
-    /** Image tiny. */
-    public tiny: string;
+    /** Profile peerID. */
+    public peerID: string;
 
-    /** Image resource at smallest size, given by CIDv1 hash */
-    public small: string;
+    /** Profile handle. */
+    public handle: string;
 
-    /** The CIDv1 hash of the image resource with double the dimensions of tiny version. */
-    public medium: string;
+    /** Profile name. */
+    public name: string;
 
-    /** Double the size of small image */
-    public large: string;
+    /** Profile location. */
+    public location: string;
+
+    /** Profile about. */
+    public about: string;
+
+    /** Profile shortDescription. */
+    public shortDescription: string;
+
+    /** Profile nsfw. */
+    public nsfw: boolean;
+
+    /** Profile vendor. */
+    public vendor: boolean;
+
+    /** Profile moderator. */
+    public moderator: boolean;
+
+    /** Profile moderatorInfo. */
+    public moderatorInfo?: (IModerator|null);
+
+    /** Profile contactInfo. */
+    public contactInfo?: (Profile.IContact|null);
+
+    /** Profile colors. */
+    public colors?: (Profile.IColors|null);
+
+    /** Profile avatarHashes. */
+    public avatarHashes?: (Profile.IImage|null);
+
+    /** Profile headerHashes. */
+    public headerHashes?: (Profile.IImage|null);
+
+    /** Profile stats. */
+    public stats?: (Profile.IStats|null);
+
+    /** Profile bitcoinPubkey. */
+    public bitcoinPubkey: string;
+
+    /** Profile lastModified. */
+    public lastModified?: (google.protobuf.ITimestamp|null);
+
+    /** Profile currencies. */
+    public currencies: string[];
 
     /**
-     * Creates a new Image instance using the specified properties.
+     * Creates a new Profile instance using the specified properties.
      * @param [properties] Properties to set
-     * @returns Image instance
+     * @returns Profile instance
      */
-    public static create(properties?: IImage): Image;
+    public static create(properties?: IProfile): Profile;
 
     /**
-     * Encodes the specified Image message. Does not implicitly {@link Image.verify|verify} messages.
-     * @param message Image message or plain object to encode
+     * Encodes the specified Profile message. Does not implicitly {@link Profile.verify|verify} messages.
+     * @param message Profile message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encode(message: IImage, writer?: $protobuf.Writer): $protobuf.Writer;
+    public static encode(message: IProfile, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
-     * Encodes the specified Image message, length delimited. Does not implicitly {@link Image.verify|verify} messages.
-     * @param message Image message or plain object to encode
+     * Encodes the specified Profile message, length delimited. Does not implicitly {@link Profile.verify|verify} messages.
+     * @param message Profile message or plain object to encode
      * @param [writer] Writer to encode to
      * @returns Writer
      */
-    public static encodeDelimited(message: IImage, writer?: $protobuf.Writer): $protobuf.Writer;
+    public static encodeDelimited(message: IProfile, writer?: $protobuf.Writer): $protobuf.Writer;
 
     /**
-     * Decodes an Image message from the specified reader or buffer.
+     * Decodes a Profile message from the specified reader or buffer.
      * @param reader Reader or buffer to decode from
      * @param [length] Message length if known beforehand
-     * @returns Image
+     * @returns Profile
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Image;
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Profile;
 
     /**
-     * Decodes an Image message from the specified reader or buffer, length delimited.
+     * Decodes a Profile message from the specified reader or buffer, length delimited.
      * @param reader Reader or buffer to decode from
-     * @returns Image
+     * @returns Profile
      * @throws {Error} If the payload is not a reader or valid buffer
      * @throws {$protobuf.util.ProtocolError} If required fields are missing
      */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Image;
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Profile;
 
     /**
-     * Verifies an Image message.
+     * Verifies a Profile message.
      * @param message Plain object to verify
      * @returns `null` if valid, otherwise the reason why it is not
      */
     public static verify(message: { [k: string]: any }): (string|null);
 
     /**
-     * Creates an Image message from a plain object. Also converts values to their respective internal types.
+     * Creates a Profile message from a plain object. Also converts values to their respective internal types.
      * @param object Plain object
-     * @returns Image
+     * @returns Profile
      */
-    public static fromObject(object: { [k: string]: any }): Image;
+    public static fromObject(object: { [k: string]: any }): Profile;
 
     /**
-     * Creates a plain object from an Image message. Also converts values to other types if specified.
-     * @param message Image
+     * Creates a plain object from a Profile message. Also converts values to other types if specified.
+     * @param message Profile
      * @param [options] Conversion options
      * @returns Plain object
      */
-    public static toObject(message: Image, options?: $protobuf.IConversionOptions): { [k: string]: any };
+    public static toObject(message: Profile, options?: $protobuf.IConversionOptions): { [k: string]: any };
 
     /**
-     * Converts this Image to JSON.
+     * Converts this Profile to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+}
+
+export namespace Profile {
+
+    /** Properties of a Contact. */
+    interface IContact {
+
+        /** Contact website */
+        website?: (string|null);
+
+        /** Contact email */
+        email?: (string|null);
+
+        /** Contact phoneNumber */
+        phoneNumber?: (string|null);
+
+        /** Contact social */
+        social?: (Profile.ISocialAccount[]|null);
+    }
+
+    /** Represents a Contact. */
+    class Contact implements IContact {
+
+        /**
+         * Constructs a new Contact.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: Profile.IContact);
+
+        /** Contact website. */
+        public website: string;
+
+        /** Contact email. */
+        public email: string;
+
+        /** Contact phoneNumber. */
+        public phoneNumber: string;
+
+        /** Contact social. */
+        public social: Profile.ISocialAccount[];
+
+        /**
+         * Creates a new Contact instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Contact instance
+         */
+        public static create(properties?: Profile.IContact): Profile.Contact;
+
+        /**
+         * Encodes the specified Contact message. Does not implicitly {@link Profile.Contact.verify|verify} messages.
+         * @param message Contact message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: Profile.IContact, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Contact message, length delimited. Does not implicitly {@link Profile.Contact.verify|verify} messages.
+         * @param message Contact message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: Profile.IContact, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a Contact message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Contact
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Profile.Contact;
+
+        /**
+         * Decodes a Contact message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Contact
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Profile.Contact;
+
+        /**
+         * Verifies a Contact message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a Contact message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Contact
+         */
+        public static fromObject(object: { [k: string]: any }): Profile.Contact;
+
+        /**
+         * Creates a plain object from a Contact message. Also converts values to other types if specified.
+         * @param message Contact
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: Profile.Contact, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Contact to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a SocialAccount. */
+    interface ISocialAccount {
+
+        /** SocialAccount type */
+        type?: (string|null);
+
+        /** SocialAccount username */
+        username?: (string|null);
+
+        /** SocialAccount proof */
+        proof?: (string|null);
+    }
+
+    /** Represents a SocialAccount. */
+    class SocialAccount implements ISocialAccount {
+
+        /**
+         * Constructs a new SocialAccount.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: Profile.ISocialAccount);
+
+        /** SocialAccount type. */
+        public type: string;
+
+        /** SocialAccount username. */
+        public username: string;
+
+        /** SocialAccount proof. */
+        public proof: string;
+
+        /**
+         * Creates a new SocialAccount instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns SocialAccount instance
+         */
+        public static create(properties?: Profile.ISocialAccount): Profile.SocialAccount;
+
+        /**
+         * Encodes the specified SocialAccount message. Does not implicitly {@link Profile.SocialAccount.verify|verify} messages.
+         * @param message SocialAccount message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: Profile.ISocialAccount, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified SocialAccount message, length delimited. Does not implicitly {@link Profile.SocialAccount.verify|verify} messages.
+         * @param message SocialAccount message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: Profile.ISocialAccount, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a SocialAccount message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns SocialAccount
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Profile.SocialAccount;
+
+        /**
+         * Decodes a SocialAccount message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns SocialAccount
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Profile.SocialAccount;
+
+        /**
+         * Verifies a SocialAccount message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a SocialAccount message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns SocialAccount
+         */
+        public static fromObject(object: { [k: string]: any }): Profile.SocialAccount;
+
+        /**
+         * Creates a plain object from a SocialAccount message. Also converts values to other types if specified.
+         * @param message SocialAccount
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: Profile.SocialAccount, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this SocialAccount to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of an Image. */
+    interface IImage {
+
+        /** Image tiny */
+        tiny?: (string|null);
+
+        /** Image small */
+        small?: (string|null);
+
+        /** Image medium */
+        medium?: (string|null);
+
+        /** Image large */
+        large?: (string|null);
+
+        /** Image original */
+        original?: (string|null);
+    }
+
+    /** Represents an Image. */
+    class Image implements IImage {
+
+        /**
+         * Constructs a new Image.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: Profile.IImage);
+
+        /** Image tiny. */
+        public tiny: string;
+
+        /** Image small. */
+        public small: string;
+
+        /** Image medium. */
+        public medium: string;
+
+        /** Image large. */
+        public large: string;
+
+        /** Image original. */
+        public original: string;
+
+        /**
+         * Creates a new Image instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Image instance
+         */
+        public static create(properties?: Profile.IImage): Profile.Image;
+
+        /**
+         * Encodes the specified Image message. Does not implicitly {@link Profile.Image.verify|verify} messages.
+         * @param message Image message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: Profile.IImage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Image message, length delimited. Does not implicitly {@link Profile.Image.verify|verify} messages.
+         * @param message Image message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: Profile.IImage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an Image message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Image
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Profile.Image;
+
+        /**
+         * Decodes an Image message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Image
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Profile.Image;
+
+        /**
+         * Verifies an Image message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an Image message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Image
+         */
+        public static fromObject(object: { [k: string]: any }): Profile.Image;
+
+        /**
+         * Creates a plain object from an Image message. Also converts values to other types if specified.
+         * @param message Image
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: Profile.Image, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Image to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a Colors. */
+    interface IColors {
+
+        /** Colors primary */
+        primary?: (string|null);
+
+        /** Colors secondary */
+        secondary?: (string|null);
+
+        /** Colors text */
+        text?: (string|null);
+
+        /** Colors highlight */
+        highlight?: (string|null);
+
+        /** Colors highlightText */
+        highlightText?: (string|null);
+    }
+
+    /** Represents a Colors. */
+    class Colors implements IColors {
+
+        /**
+         * Constructs a new Colors.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: Profile.IColors);
+
+        /** Colors primary. */
+        public primary: string;
+
+        /** Colors secondary. */
+        public secondary: string;
+
+        /** Colors text. */
+        public text: string;
+
+        /** Colors highlight. */
+        public highlight: string;
+
+        /** Colors highlightText. */
+        public highlightText: string;
+
+        /**
+         * Creates a new Colors instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Colors instance
+         */
+        public static create(properties?: Profile.IColors): Profile.Colors;
+
+        /**
+         * Encodes the specified Colors message. Does not implicitly {@link Profile.Colors.verify|verify} messages.
+         * @param message Colors message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: Profile.IColors, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Colors message, length delimited. Does not implicitly {@link Profile.Colors.verify|verify} messages.
+         * @param message Colors message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: Profile.IColors, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a Colors message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Colors
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Profile.Colors;
+
+        /**
+         * Decodes a Colors message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Colors
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Profile.Colors;
+
+        /**
+         * Verifies a Colors message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a Colors message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Colors
+         */
+        public static fromObject(object: { [k: string]: any }): Profile.Colors;
+
+        /**
+         * Creates a plain object from a Colors message. Also converts values to other types if specified.
+         * @param message Colors
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: Profile.Colors, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Colors to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** Properties of a Stats. */
+    interface IStats {
+
+        /** Stats followerCount */
+        followerCount?: (number|null);
+
+        /** Stats followingCount */
+        followingCount?: (number|null);
+
+        /** Stats listingCount */
+        listingCount?: (number|null);
+
+        /** Stats ratingCount */
+        ratingCount?: (number|null);
+
+        /** Stats postCount */
+        postCount?: (number|null);
+
+        /** Stats averageRating */
+        averageRating?: (number|null);
+    }
+
+    /** Represents a Stats. */
+    class Stats implements IStats {
+
+        /**
+         * Constructs a new Stats.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: Profile.IStats);
+
+        /** Stats followerCount. */
+        public followerCount: number;
+
+        /** Stats followingCount. */
+        public followingCount: number;
+
+        /** Stats listingCount. */
+        public listingCount: number;
+
+        /** Stats ratingCount. */
+        public ratingCount: number;
+
+        /** Stats postCount. */
+        public postCount: number;
+
+        /** Stats averageRating. */
+        public averageRating: number;
+
+        /**
+         * Creates a new Stats instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Stats instance
+         */
+        public static create(properties?: Profile.IStats): Profile.Stats;
+
+        /**
+         * Encodes the specified Stats message. Does not implicitly {@link Profile.Stats.verify|verify} messages.
+         * @param message Stats message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: Profile.IStats, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Stats message, length delimited. Does not implicitly {@link Profile.Stats.verify|verify} messages.
+         * @param message Stats message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: Profile.IStats, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a Stats message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Stats
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Profile.Stats;
+
+        /**
+         * Decodes a Stats message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Stats
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Profile.Stats;
+
+        /**
+         * Verifies a Stats message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a Stats message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Stats
+         */
+        public static fromObject(object: { [k: string]: any }): Profile.Stats;
+
+        /**
+         * Creates a plain object from a Stats message. Also converts values to other types if specified.
+         * @param message Stats
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: Profile.Stats, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Stats to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+}
+
+/** Properties of a Moderator. */
+export interface IModerator {
+
+    /** Moderator description */
+    description?: (string|null);
+
+    /** Moderator termsAndConditions */
+    termsAndConditions?: (string|null);
+
+    /** Moderator languages */
+    languages?: (string[]|null);
+
+    /** Moderator acceptedCurrencies */
+    acceptedCurrencies?: (string[]|null);
+
+    /** Moderator fee */
+    fee?: (Moderator.IFee|null);
+}
+
+/** Represents a Moderator. */
+export class Moderator implements IModerator {
+
+    /**
+     * Constructs a new Moderator.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: IModerator);
+
+    /** Moderator description. */
+    public description: string;
+
+    /** Moderator termsAndConditions. */
+    public termsAndConditions: string;
+
+    /** Moderator languages. */
+    public languages: string[];
+
+    /** Moderator acceptedCurrencies. */
+    public acceptedCurrencies: string[];
+
+    /** Moderator fee. */
+    public fee?: (Moderator.IFee|null);
+
+    /**
+     * Creates a new Moderator instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns Moderator instance
+     */
+    public static create(properties?: IModerator): Moderator;
+
+    /**
+     * Encodes the specified Moderator message. Does not implicitly {@link Moderator.verify|verify} messages.
+     * @param message Moderator message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: IModerator, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified Moderator message, length delimited. Does not implicitly {@link Moderator.verify|verify} messages.
+     * @param message Moderator message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: IModerator, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes a Moderator message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns Moderator
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Moderator;
+
+    /**
+     * Decodes a Moderator message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns Moderator
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Moderator;
+
+    /**
+     * Verifies a Moderator message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates a Moderator message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns Moderator
+     */
+    public static fromObject(object: { [k: string]: any }): Moderator;
+
+    /**
+     * Creates a plain object from a Moderator message. Also converts values to other types if specified.
+     * @param message Moderator
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: Moderator, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this Moderator to JSON.
+     * @returns JSON object
+     */
+    public toJSON(): { [k: string]: any };
+}
+
+export namespace Moderator {
+
+    /** Properties of a Fee. */
+    interface IFee {
+
+        /** Fee fixedFee */
+        fixedFee?: (Moderator.IPrice|null);
+
+        /** Fee percentage */
+        percentage?: (number|null);
+
+        /** Fee feeType */
+        feeType?: (Moderator.Fee.FeeType|null);
+    }
+
+    /** Represents a Fee. */
+    class Fee implements IFee {
+
+        /**
+         * Constructs a new Fee.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: Moderator.IFee);
+
+        /** Fee fixedFee. */
+        public fixedFee?: (Moderator.IPrice|null);
+
+        /** Fee percentage. */
+        public percentage: number;
+
+        /** Fee feeType. */
+        public feeType: Moderator.Fee.FeeType;
+
+        /**
+         * Creates a new Fee instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Fee instance
+         */
+        public static create(properties?: Moderator.IFee): Moderator.Fee;
+
+        /**
+         * Encodes the specified Fee message. Does not implicitly {@link Moderator.Fee.verify|verify} messages.
+         * @param message Fee message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: Moderator.IFee, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Fee message, length delimited. Does not implicitly {@link Moderator.Fee.verify|verify} messages.
+         * @param message Fee message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: Moderator.IFee, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a Fee message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Fee
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Moderator.Fee;
+
+        /**
+         * Decodes a Fee message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Fee
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Moderator.Fee;
+
+        /**
+         * Verifies a Fee message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a Fee message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Fee
+         */
+        public static fromObject(object: { [k: string]: any }): Moderator.Fee;
+
+        /**
+         * Creates a plain object from a Fee message. Also converts values to other types if specified.
+         * @param message Fee
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: Moderator.Fee, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Fee to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    namespace Fee {
+
+        /** FeeType enum. */
+        enum FeeType {
+            FIXED = 0,
+            PERCENTAGE = 1,
+            FIXED_PLUS_PERCENTAGE = 2
+        }
+    }
+
+    /** Properties of a Price. */
+    interface IPrice {
+
+        /** Price currencyCode */
+        currencyCode?: (string|null);
+
+        /** Price amount */
+        amount?: (number|Long|null);
+    }
+
+    /** Represents a Price. */
+    class Price implements IPrice {
+
+        /**
+         * Constructs a new Price.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: Moderator.IPrice);
+
+        /** Price currencyCode. */
+        public currencyCode: string;
+
+        /** Price amount. */
+        public amount: (number|Long);
+
+        /**
+         * Creates a new Price instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Price instance
+         */
+        public static create(properties?: Moderator.IPrice): Moderator.Price;
+
+        /**
+         * Encodes the specified Price message. Does not implicitly {@link Moderator.Price.verify|verify} messages.
+         * @param message Price message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: Moderator.IPrice, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Price message, length delimited. Does not implicitly {@link Moderator.Price.verify|verify} messages.
+         * @param message Price message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: Moderator.IPrice, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes a Price message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Price
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Moderator.Price;
+
+        /**
+         * Decodes a Price message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Price
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Moderator.Price;
+
+        /**
+         * Verifies a Price message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates a Price message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Price
+         */
+        public static fromObject(object: { [k: string]: any }): Moderator.Price;
+
+        /**
+         * Creates a plain object from a Price message. Also converts values to other types if specified.
+         * @param message Price
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: Moderator.Price, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Price to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+}
+
+/** Properties of a DisputeUpdate. */
+export interface IDisputeUpdate {
+
+    /** DisputeUpdate orderId */
+    orderId?: (string|null);
+
+    /** DisputeUpdate payoutAddress */
+    payoutAddress?: (string|null);
+
+    /** DisputeUpdate outpoints */
+    outpoints?: (IOutpoint[]|null);
+
+    /** DisputeUpdate serializedContract */
+    serializedContract?: (Uint8Array|null);
+}
+
+/** Represents a DisputeUpdate. */
+export class DisputeUpdate implements IDisputeUpdate {
+
+    /**
+     * Constructs a new DisputeUpdate.
+     * @param [properties] Properties to set
+     */
+    constructor(properties?: IDisputeUpdate);
+
+    /** DisputeUpdate orderId. */
+    public orderId: string;
+
+    /** DisputeUpdate payoutAddress. */
+    public payoutAddress: string;
+
+    /** DisputeUpdate outpoints. */
+    public outpoints: IOutpoint[];
+
+    /** DisputeUpdate serializedContract. */
+    public serializedContract: Uint8Array;
+
+    /**
+     * Creates a new DisputeUpdate instance using the specified properties.
+     * @param [properties] Properties to set
+     * @returns DisputeUpdate instance
+     */
+    public static create(properties?: IDisputeUpdate): DisputeUpdate;
+
+    /**
+     * Encodes the specified DisputeUpdate message. Does not implicitly {@link DisputeUpdate.verify|verify} messages.
+     * @param message DisputeUpdate message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encode(message: IDisputeUpdate, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Encodes the specified DisputeUpdate message, length delimited. Does not implicitly {@link DisputeUpdate.verify|verify} messages.
+     * @param message DisputeUpdate message or plain object to encode
+     * @param [writer] Writer to encode to
+     * @returns Writer
+     */
+    public static encodeDelimited(message: IDisputeUpdate, writer?: $protobuf.Writer): $protobuf.Writer;
+
+    /**
+     * Decodes a DisputeUpdate message from the specified reader or buffer.
+     * @param reader Reader or buffer to decode from
+     * @param [length] Message length if known beforehand
+     * @returns DisputeUpdate
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): DisputeUpdate;
+
+    /**
+     * Decodes a DisputeUpdate message from the specified reader or buffer, length delimited.
+     * @param reader Reader or buffer to decode from
+     * @returns DisputeUpdate
+     * @throws {Error} If the payload is not a reader or valid buffer
+     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+     */
+    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): DisputeUpdate;
+
+    /**
+     * Verifies a DisputeUpdate message.
+     * @param message Plain object to verify
+     * @returns `null` if valid, otherwise the reason why it is not
+     */
+    public static verify(message: { [k: string]: any }): (string|null);
+
+    /**
+     * Creates a DisputeUpdate message from a plain object. Also converts values to their respective internal types.
+     * @param object Plain object
+     * @returns DisputeUpdate
+     */
+    public static fromObject(object: { [k: string]: any }): DisputeUpdate;
+
+    /**
+     * Creates a plain object from a DisputeUpdate message. Also converts values to other types if specified.
+     * @param message DisputeUpdate
+     * @param [options] Conversion options
+     * @returns Plain object
+     */
+    public static toObject(message: DisputeUpdate, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+    /**
+     * Converts this DisputeUpdate to JSON.
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
@@ -6935,6 +7555,7 @@ export namespace Message {
         MODERATOR_REMOVE = 17,
         STORE = 18,
         BLOCK = 19,
+        VENDOR_FINALIZED_PAYMENT = 20,
         ERROR = 500
     }
 }
@@ -7860,480 +8481,37 @@ export namespace google {
     }
 }
 
-/** Properties of a Moderator. */
-export interface IModerator {
-
-    /** Moderator description */
-    description?: (string|null);
-
-    /** Moderator termsAndConditions */
-    termsAndConditions?: (string|null);
-
-    /** Moderator languages */
-    languages?: (string[]|null);
-
-    /** Moderator acceptedCurrencies */
-    acceptedCurrencies?: (string[]|null);
-
-    /** Moderator fee */
-    fee?: (Moderator.IFee|null);
-}
-
-/** Represents a Moderator. */
-export class Moderator implements IModerator {
-
-    /**
-     * Constructs a new Moderator.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IModerator);
-
-    /** Moderator description. */
-    public description: string;
-
-    /** Moderator termsAndConditions. */
-    public termsAndConditions: string;
-
-    /** Moderator languages. */
-    public languages: string[];
-
-    /** Moderator acceptedCurrencies. */
-    public acceptedCurrencies: string[];
-
-    /** Moderator fee. */
-    public fee?: (Moderator.IFee|null);
-
-    /**
-     * Creates a new Moderator instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns Moderator instance
-     */
-    public static create(properties?: IModerator): Moderator;
-
-    /**
-     * Encodes the specified Moderator message. Does not implicitly {@link Moderator.verify|verify} messages.
-     * @param message Moderator message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IModerator, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified Moderator message, length delimited. Does not implicitly {@link Moderator.verify|verify} messages.
-     * @param message Moderator message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IModerator, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a Moderator message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns Moderator
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Moderator;
-
-    /**
-     * Decodes a Moderator message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns Moderator
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Moderator;
-
-    /**
-     * Verifies a Moderator message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a Moderator message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns Moderator
-     */
-    public static fromObject(object: { [k: string]: any }): Moderator;
-
-    /**
-     * Creates a plain object from a Moderator message. Also converts values to other types if specified.
-     * @param message Moderator
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: Moderator, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this Moderator to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-export namespace Moderator {
-
-    /** Properties of a Fee. */
-    interface IFee {
-
-        /** Fee fixedFee */
-        fixedFee?: (Moderator.IPrice|null);
-
-        /** Fee percentage */
-        percentage?: (number|null);
-
-        /** Fee feeType */
-        feeType?: (Moderator.Fee.FeeType|null);
-    }
-
-    /** Represents a Fee. */
-    class Fee implements IFee {
-
-        /**
-         * Constructs a new Fee.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: Moderator.IFee);
-
-        /** Fee fixedFee. */
-        public fixedFee?: (Moderator.IPrice|null);
-
-        /** Fee percentage. */
-        public percentage: number;
-
-        /** Fee feeType. */
-        public feeType: Moderator.Fee.FeeType;
-
-        /**
-         * Creates a new Fee instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns Fee instance
-         */
-        public static create(properties?: Moderator.IFee): Moderator.Fee;
-
-        /**
-         * Encodes the specified Fee message. Does not implicitly {@link Moderator.Fee.verify|verify} messages.
-         * @param message Fee message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: Moderator.IFee, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified Fee message, length delimited. Does not implicitly {@link Moderator.Fee.verify|verify} messages.
-         * @param message Fee message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: Moderator.IFee, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a Fee message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns Fee
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Moderator.Fee;
-
-        /**
-         * Decodes a Fee message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns Fee
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Moderator.Fee;
-
-        /**
-         * Verifies a Fee message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a Fee message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns Fee
-         */
-        public static fromObject(object: { [k: string]: any }): Moderator.Fee;
-
-        /**
-         * Creates a plain object from a Fee message. Also converts values to other types if specified.
-         * @param message Fee
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: Moderator.Fee, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this Fee to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    namespace Fee {
-
-        /** FeeType enum. */
-        enum FeeType {
-            FIXED = 0,
-            PERCENTAGE = 1,
-            FIXED_PLUS_PERCENTAGE = 2
-        }
-    }
-
-    /** Properties of a Price. */
-    interface IPrice {
-
-        /** Price currencyCode */
-        currencyCode?: (string|null);
-
-        /** Price amount */
-        amount?: (number|Long|null);
-    }
-
-    /** Represents a Price. */
-    class Price implements IPrice {
-
-        /**
-         * Constructs a new Price.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: Moderator.IPrice);
-
-        /** Price currencyCode. */
-        public currencyCode: string;
-
-        /** Price amount. */
-        public amount: (number|Long);
-
-        /**
-         * Creates a new Price instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns Price instance
-         */
-        public static create(properties?: Moderator.IPrice): Moderator.Price;
-
-        /**
-         * Encodes the specified Price message. Does not implicitly {@link Moderator.Price.verify|verify} messages.
-         * @param message Price message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: Moderator.IPrice, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified Price message, length delimited. Does not implicitly {@link Moderator.Price.verify|verify} messages.
-         * @param message Price message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: Moderator.IPrice, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a Price message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns Price
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Moderator.Price;
-
-        /**
-         * Decodes a Price message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns Price
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Moderator.Price;
-
-        /**
-         * Verifies a Price message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a Price message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns Price
-         */
-        public static fromObject(object: { [k: string]: any }): Moderator.Price;
-
-        /**
-         * Creates a plain object from a Price message. Also converts values to other types if specified.
-         * @param message Price
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: Moderator.Price, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this Price to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-}
-
-/** Properties of a DisputeUpdate. */
-export interface IDisputeUpdate {
-
-    /** DisputeUpdate orderId */
-    orderId?: (string|null);
-
-    /** DisputeUpdate payoutAddress */
-    payoutAddress?: (string|null);
-
-    /** DisputeUpdate outpoints */
-    outpoints?: (IOutpoint[]|null);
-
-    /** DisputeUpdate serializedContract */
-    serializedContract?: (Uint8Array|null);
-}
-
-/** Represents a DisputeUpdate. */
-export class DisputeUpdate implements IDisputeUpdate {
-
-    /**
-     * Constructs a new DisputeUpdate.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IDisputeUpdate);
-
-    /** DisputeUpdate orderId. */
-    public orderId: string;
-
-    /** DisputeUpdate payoutAddress. */
-    public payoutAddress: string;
-
-    /** DisputeUpdate outpoints. */
-    public outpoints: IOutpoint[];
-
-    /** DisputeUpdate serializedContract. */
-    public serializedContract: Uint8Array;
-
-    /**
-     * Creates a new DisputeUpdate instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns DisputeUpdate instance
-     */
-    public static create(properties?: IDisputeUpdate): DisputeUpdate;
-
-    /**
-     * Encodes the specified DisputeUpdate message. Does not implicitly {@link DisputeUpdate.verify|verify} messages.
-     * @param message DisputeUpdate message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IDisputeUpdate, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified DisputeUpdate message, length delimited. Does not implicitly {@link DisputeUpdate.verify|verify} messages.
-     * @param message DisputeUpdate message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IDisputeUpdate, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a DisputeUpdate message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns DisputeUpdate
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): DisputeUpdate;
-
-    /**
-     * Decodes a DisputeUpdate message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns DisputeUpdate
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): DisputeUpdate;
-
-    /**
-     * Verifies a DisputeUpdate message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a DisputeUpdate message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns DisputeUpdate
-     */
-    public static fromObject(object: { [k: string]: any }): DisputeUpdate;
-
-    /**
-     * Creates a plain object from a DisputeUpdate message. Also converts values to other types if specified.
-     * @param message DisputeUpdate
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: DisputeUpdate, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this DisputeUpdate to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-/** OrderState enum. */
-export enum OrderState {
-    PENDING = 0,
-    AWAITING_PAYMENT = 1,
-    AWAITING_PICKUP = 2,
-    AWAITING_FULFILLMENT = 3,
-    PARTIALLY_FULFILLED = 4,
-    FULFILLED = 5,
-    COMPLETED = 6,
-    CANCELED = 7,
-    DECLINED = 8,
-    REFUNDED = 9,
-    DISPUTED = 10,
-    DECIDED = 11,
-    RESOLVED = 12,
-    PAYMENT_FINALIZED = 13,
-    PROCESSING_ERROR = 14
-}
-
 /** Properties of a Post. */
 export interface IPost {
 
     /** Post slug */
     slug?: (string|null);
 
-    /** Immutable human readabile clean url */
+    /** Post vendorID */
     vendorID?: (IID|null);
 
-    /** PeerID of the content */
-    title?: (string|null);
+    /** Post status */
+    status?: (string|null);
 
-    /** Title of post */
+    /** Post longForm */
     longForm?: (string|null);
 
-    /** Post content */
-    images?: (IImage[]|null);
+    /** Post images */
+    images?: (Post.IImage[]|null);
 
-    /** List of post images */
+    /** Post tags */
     tags?: (string[]|null);
 
-    /** List of text tags */
+    /** Post channels */
+    channels?: (string[]|null);
+
+    /** Post postType */
+    postType?: (Post.PostType|null);
+
+    /** Post reference */
+    reference?: (string|null);
+
+    /** Post timestamp */
     timestamp?: (google.protobuf.ITimestamp|null);
 }
 
@@ -8349,22 +8527,31 @@ export class Post implements IPost {
     /** Post slug. */
     public slug: string;
 
-    /** Immutable human readabile clean url */
+    /** Post vendorID. */
     public vendorID?: (IID|null);
 
-    /** PeerID of the content */
-    public title: string;
+    /** Post status. */
+    public status: string;
 
-    /** Title of post */
+    /** Post longForm. */
     public longForm: string;
 
-    /** Post content */
-    public images: IImage[];
+    /** Post images. */
+    public images: Post.IImage[];
 
-    /** List of post images */
+    /** Post tags. */
     public tags: string[];
 
-    /** List of text tags */
+    /** Post channels. */
+    public channels: string[];
+
+    /** Post postType. */
+    public postType: Post.PostType;
+
+    /** Post reference. */
+    public reference: string;
+
+    /** Post timestamp. */
     public timestamp?: (google.protobuf.ITimestamp|null);
 
     /**
@@ -8436,6 +8623,136 @@ export class Post implements IPost {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
+}
+
+export namespace Post {
+
+    /** Properties of an Image. */
+    interface IImage {
+
+        /** Image filename */
+        filename?: (string|null);
+
+        /** Image original */
+        original?: (string|null);
+
+        /** Image large */
+        large?: (string|null);
+
+        /** Image medium */
+        medium?: (string|null);
+
+        /** Image small */
+        small?: (string|null);
+
+        /** Image tiny */
+        tiny?: (string|null);
+    }
+
+    /** Represents an Image. */
+    class Image implements IImage {
+
+        /**
+         * Constructs a new Image.
+         * @param [properties] Properties to set
+         */
+        constructor(properties?: Post.IImage);
+
+        /** Image filename. */
+        public filename: string;
+
+        /** Image original. */
+        public original: string;
+
+        /** Image large. */
+        public large: string;
+
+        /** Image medium. */
+        public medium: string;
+
+        /** Image small. */
+        public small: string;
+
+        /** Image tiny. */
+        public tiny: string;
+
+        /**
+         * Creates a new Image instance using the specified properties.
+         * @param [properties] Properties to set
+         * @returns Image instance
+         */
+        public static create(properties?: Post.IImage): Post.Image;
+
+        /**
+         * Encodes the specified Image message. Does not implicitly {@link Post.Image.verify|verify} messages.
+         * @param message Image message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encode(message: Post.IImage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Encodes the specified Image message, length delimited. Does not implicitly {@link Post.Image.verify|verify} messages.
+         * @param message Image message or plain object to encode
+         * @param [writer] Writer to encode to
+         * @returns Writer
+         */
+        public static encodeDelimited(message: Post.IImage, writer?: $protobuf.Writer): $protobuf.Writer;
+
+        /**
+         * Decodes an Image message from the specified reader or buffer.
+         * @param reader Reader or buffer to decode from
+         * @param [length] Message length if known beforehand
+         * @returns Image
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Post.Image;
+
+        /**
+         * Decodes an Image message from the specified reader or buffer, length delimited.
+         * @param reader Reader or buffer to decode from
+         * @returns Image
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Post.Image;
+
+        /**
+         * Verifies an Image message.
+         * @param message Plain object to verify
+         * @returns `null` if valid, otherwise the reason why it is not
+         */
+        public static verify(message: { [k: string]: any }): (string|null);
+
+        /**
+         * Creates an Image message from a plain object. Also converts values to their respective internal types.
+         * @param object Plain object
+         * @returns Image
+         */
+        public static fromObject(object: { [k: string]: any }): Post.Image;
+
+        /**
+         * Creates a plain object from an Image message. Also converts values to other types if specified.
+         * @param message Image
+         * @param [options] Conversion options
+         * @returns Plain object
+         */
+        public static toObject(message: Post.Image, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+        /**
+         * Converts this Image to JSON.
+         * @returns JSON object
+         */
+        public toJSON(): { [k: string]: any };
+    }
+
+    /** PostType enum. */
+    enum PostType {
+        POST = 0,
+        COMMENT = 1,
+        REPOST = 2
+    }
 }
 
 /** Properties of a SignedPost. */
@@ -8538,2018 +8855,4 @@ export class SignedPost implements ISignedPost {
      * @returns JSON object
      */
     public toJSON(): { [k: string]: any };
-}
-
-/** Properties of a Profile. */
-export interface IProfile {
-
-    /** Profile peerID */
-    peerID?: (string|null);
-
-    /** The unique Base58 CIDv0 ipfs node identifer, (Qm...). */
-    handle?: (string|null);
-
-    /** Distinct authoritative human-readable name (i.e. dnslink) */
-    name?: (string|null);
-
-    /** Display name of peer */
-    location?: (string|null);
-
-    /** Description of store location (100 character limit) */
-    about?: (string|null);
-
-    /** Long description with basic html markup allowed. */
-    shortDescription?: (string|null);
-
-    /** Profile nsfw */
-    nsfw?: (boolean|null);
-
-    /** Whether the node hosts mature or adult content. */
-    vendor?: (boolean|null);
-
-    /** Whether the node is operating as a vendor. */
-    moderator?: (boolean|null);
-
-    /** Whether the node offers moderation as a service. */
-    moderatorInfo?: (IModerator|null);
-
-    /** Profile contactInfo */
-    contactInfo?: (Profile.IContact|null);
-
-    /** The contact info for the node. */
-    colors?: (Profile.IColors|null);
-
-    /** Profile avatarHashes */
-    avatarHashes?: (IImage|null);
-
-    /** The node avatar image. (tiny: 60x60) */
-    headerHashes?: (IImage|null);
-
-    /** Profile stats */
-    stats?: (Profile.IStats|null);
-
-    /** Profile bitcoinPubkey */
-    bitcoinPubkey?: (string|null);
-
-    /** Profile lastModified */
-    lastModified?: (google.protobuf.ITimestamp|null);
-
-    /** Profile currencies */
-    currencies?: (string[]|null);
-}
-
-/**
- * A participant on the openbazaar network. Defined by a random secret (12 word seed), used to generate
- * both the root cryptocurrency address and ipfs public hash.
- */
-export class Profile implements IProfile {
-
-    /**
-     * Constructs a new Profile.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IProfile);
-
-    /** Profile peerID. */
-    public peerID: string;
-
-    /** The unique Base58 CIDv0 ipfs node identifer, (Qm...). */
-    public handle: string;
-
-    /** Distinct authoritative human-readable name (i.e. dnslink) */
-    public name: string;
-
-    /** Display name of peer */
-    public location: string;
-
-    /** Description of store location (100 character limit) */
-    public about: string;
-
-    /** Long description with basic html markup allowed. */
-    public shortDescription: string;
-
-    /** Profile nsfw. */
-    public nsfw: boolean;
-
-    /** Whether the node hosts mature or adult content. */
-    public vendor: boolean;
-
-    /** Whether the node is operating as a vendor. */
-    public moderator: boolean;
-
-    /** Whether the node offers moderation as a service. */
-    public moderatorInfo?: (IModerator|null);
-
-    /** Profile contactInfo. */
-    public contactInfo?: (Profile.IContact|null);
-
-    /** The contact info for the node. */
-    public colors?: (Profile.IColors|null);
-
-    /** Profile avatarHashes. */
-    public avatarHashes?: (IImage|null);
-
-    /** The node avatar image. (tiny: 60x60) */
-    public headerHashes?: (IImage|null);
-
-    /** Profile stats. */
-    public stats?: (Profile.IStats|null);
-
-    /** Profile bitcoinPubkey. */
-    public bitcoinPubkey: string;
-
-    /** Profile lastModified. */
-    public lastModified?: (google.protobuf.ITimestamp|null);
-
-    /** Profile currencies. */
-    public currencies: string[];
-
-    /**
-     * Creates a new Profile instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns Profile instance
-     */
-    public static create(properties?: IProfile): Profile;
-
-    /**
-     * Encodes the specified Profile message. Does not implicitly {@link Profile.verify|verify} messages.
-     * @param message Profile message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IProfile, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified Profile message, length delimited. Does not implicitly {@link Profile.verify|verify} messages.
-     * @param message Profile message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IProfile, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a Profile message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns Profile
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Profile;
-
-    /**
-     * Decodes a Profile message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns Profile
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Profile;
-
-    /**
-     * Verifies a Profile message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a Profile message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns Profile
-     */
-    public static fromObject(object: { [k: string]: any }): Profile;
-
-    /**
-     * Creates a plain object from a Profile message. Also converts values to other types if specified.
-     * @param message Profile
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: Profile, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this Profile to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-export namespace Profile {
-
-    /** Properties of a Contact. */
-    interface IContact {
-
-        /** Contact website */
-        website?: (string|null);
-
-        /** Website url */
-        email?: (string|null);
-
-        /** Contact email address */
-        phoneNumber?: (string|null);
-
-        /** Contact phone number */
-        social?: (Profile.ISocialAccount[]|null);
-    }
-
-    /** Contact information for the node. */
-    class Contact implements IContact {
-
-        /**
-         * Constructs a new Contact.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: Profile.IContact);
-
-        /** Contact website. */
-        public website: string;
-
-        /** Website url */
-        public email: string;
-
-        /** Contact email address */
-        public phoneNumber: string;
-
-        /** Contact phone number */
-        public social: Profile.ISocialAccount[];
-
-        /**
-         * Creates a new Contact instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns Contact instance
-         */
-        public static create(properties?: Profile.IContact): Profile.Contact;
-
-        /**
-         * Encodes the specified Contact message. Does not implicitly {@link Profile.Contact.verify|verify} messages.
-         * @param message Contact message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: Profile.IContact, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified Contact message, length delimited. Does not implicitly {@link Profile.Contact.verify|verify} messages.
-         * @param message Contact message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: Profile.IContact, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a Contact message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns Contact
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Profile.Contact;
-
-        /**
-         * Decodes a Contact message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns Contact
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Profile.Contact;
-
-        /**
-         * Verifies a Contact message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a Contact message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns Contact
-         */
-        public static fromObject(object: { [k: string]: any }): Profile.Contact;
-
-        /**
-         * Creates a plain object from a Contact message. Also converts values to other types if specified.
-         * @param message Contact
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: Profile.Contact, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this Contact to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a SocialAccount. */
-    interface ISocialAccount {
-
-        /** SocialAccount type */
-        type?: (string|null);
-
-        /** Social media platform */
-        username?: (string|null);
-
-        /** Handle on social media platform */
-        proof?: (string|null);
-    }
-
-    /** Reference to an external account */
-    class SocialAccount implements ISocialAccount {
-
-        /**
-         * Constructs a new SocialAccount.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: Profile.ISocialAccount);
-
-        /** SocialAccount type. */
-        public type: string;
-
-        /** Social media platform */
-        public username: string;
-
-        /** Handle on social media platform */
-        public proof: string;
-
-        /**
-         * Creates a new SocialAccount instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns SocialAccount instance
-         */
-        public static create(properties?: Profile.ISocialAccount): Profile.SocialAccount;
-
-        /**
-         * Encodes the specified SocialAccount message. Does not implicitly {@link Profile.SocialAccount.verify|verify} messages.
-         * @param message SocialAccount message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: Profile.ISocialAccount, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified SocialAccount message, length delimited. Does not implicitly {@link Profile.SocialAccount.verify|verify} messages.
-         * @param message SocialAccount message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: Profile.ISocialAccount, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a SocialAccount message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns SocialAccount
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Profile.SocialAccount;
-
-        /**
-         * Decodes a SocialAccount message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns SocialAccount
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Profile.SocialAccount;
-
-        /**
-         * Verifies a SocialAccount message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a SocialAccount message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns SocialAccount
-         */
-        public static fromObject(object: { [k: string]: any }): Profile.SocialAccount;
-
-        /**
-         * Creates a plain object from a SocialAccount message. Also converts values to other types if specified.
-         * @param message SocialAccount
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: Profile.SocialAccount, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this SocialAccount to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a Colors. */
-    interface IColors {
-
-        /** Colors primary */
-        primary?: (string|null);
-
-        /** Twitter style profile theme color, default #FFFFFF */
-        secondary?: (string|null);
-
-        /** Alternate color, default #ECEEF2 */
-        text?: (string|null);
-
-        /** Text color, default #252525 */
-        highlight?: (string|null);
-
-        /** Highlight color, default #2BAD23 */
-        highlightText?: (string|null);
-    }
-
-    /** Profile theme colors, not implemented. Values given in html style hex code */
-    class Colors implements IColors {
-
-        /**
-         * Constructs a new Colors.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: Profile.IColors);
-
-        /** Colors primary. */
-        public primary: string;
-
-        /** Twitter style profile theme color, default #FFFFFF */
-        public secondary: string;
-
-        /** Alternate color, default #ECEEF2 */
-        public text: string;
-
-        /** Text color, default #252525 */
-        public highlight: string;
-
-        /** Highlight color, default #2BAD23 */
-        public highlightText: string;
-
-        /**
-         * Creates a new Colors instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns Colors instance
-         */
-        public static create(properties?: Profile.IColors): Profile.Colors;
-
-        /**
-         * Encodes the specified Colors message. Does not implicitly {@link Profile.Colors.verify|verify} messages.
-         * @param message Colors message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: Profile.IColors, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified Colors message, length delimited. Does not implicitly {@link Profile.Colors.verify|verify} messages.
-         * @param message Colors message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: Profile.IColors, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a Colors message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns Colors
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Profile.Colors;
-
-        /**
-         * Decodes a Colors message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns Colors
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Profile.Colors;
-
-        /**
-         * Verifies a Colors message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a Colors message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns Colors
-         */
-        public static fromObject(object: { [k: string]: any }): Profile.Colors;
-
-        /**
-         * Creates a plain object from a Colors message. Also converts values to other types if specified.
-         * @param message Colors
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: Profile.Colors, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this Colors to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a Stats. */
-    interface IStats {
-
-        /** Stats followerCount */
-        followerCount?: (number|null);
-
-        /** Follower count */
-        followingCount?: (number|null);
-
-        /** Following count */
-        listingCount?: (number|null);
-
-        /** Total active listing count */
-        ratingCount?: (number|null);
-
-        /** Rating count */
-        postCount?: (number|null);
-
-        /** Total number of posts */
-        averageRating?: (number|null);
-    }
-
-    /** Unverified stats maintained and provided by server for convenience. */
-    class Stats implements IStats {
-
-        /**
-         * Constructs a new Stats.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: Profile.IStats);
-
-        /** Stats followerCount. */
-        public followerCount: number;
-
-        /** Follower count */
-        public followingCount: number;
-
-        /** Following count */
-        public listingCount: number;
-
-        /** Total active listing count */
-        public ratingCount: number;
-
-        /** Rating count */
-        public postCount: number;
-
-        /** Total number of posts */
-        public averageRating: number;
-
-        /**
-         * Creates a new Stats instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns Stats instance
-         */
-        public static create(properties?: Profile.IStats): Profile.Stats;
-
-        /**
-         * Encodes the specified Stats message. Does not implicitly {@link Profile.Stats.verify|verify} messages.
-         * @param message Stats message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: Profile.IStats, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified Stats message, length delimited. Does not implicitly {@link Profile.Stats.verify|verify} messages.
-         * @param message Stats message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: Profile.IStats, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a Stats message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns Stats
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): Profile.Stats;
-
-        /**
-         * Decodes a Stats message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns Stats
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): Profile.Stats;
-
-        /**
-         * Verifies a Stats message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a Stats message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns Stats
-         */
-        public static fromObject(object: { [k: string]: any }): Profile.Stats;
-
-        /**
-         * Creates a plain object from a Stats message. Also converts values to other types if specified.
-         * @param message Stats
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: Profile.Stats, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this Stats to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-}
-
-/** Properties of a SearchResponse. */
-export interface ISearchResponse {
-
-    /** SearchResponse name */
-    name?: (string|null);
-
-    /** Display name of search provider */
-    logo?: (string|null);
-
-    /** URL of icon for search provider */
-    links?: ({ [k: string]: string }|null);
-
-    /** URI endpoints */
-    options?: ({ [k: string]: SearchResponse.ISearchProviderOption }|null);
-
-    /** Filtering options for search */
-    sortBy?: ({ [k: string]: SearchResponse.ISearchProviderSort }|null);
-}
-
-/** Represents a SearchResponse. */
-export class SearchResponse implements ISearchResponse {
-
-    /**
-     * Constructs a new SearchResponse.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: ISearchResponse);
-
-    /** SearchResponse name. */
-    public name: string;
-
-    /** Display name of search provider */
-    public logo: string;
-
-    /** URL of icon for search provider */
-    public links: { [k: string]: string };
-
-    /** URI endpoints */
-    public options: { [k: string]: SearchResponse.ISearchProviderOption };
-
-    /** Filtering options for search */
-    public sortBy: { [k: string]: SearchResponse.ISearchProviderSort };
-
-    /**
-     * Creates a new SearchResponse instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns SearchResponse instance
-     */
-    public static create(properties?: ISearchResponse): SearchResponse;
-
-    /**
-     * Encodes the specified SearchResponse message. Does not implicitly {@link SearchResponse.verify|verify} messages.
-     * @param message SearchResponse message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: ISearchResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified SearchResponse message, length delimited. Does not implicitly {@link SearchResponse.verify|verify} messages.
-     * @param message SearchResponse message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: ISearchResponse, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a SearchResponse message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns SearchResponse
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): SearchResponse;
-
-    /**
-     * Decodes a SearchResponse message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns SearchResponse
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): SearchResponse;
-
-    /**
-     * Verifies a SearchResponse message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a SearchResponse message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns SearchResponse
-     */
-    public static fromObject(object: { [k: string]: any }): SearchResponse;
-
-    /**
-     * Creates a plain object from a SearchResponse message. Also converts values to other types if specified.
-     * @param message SearchResponse
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: SearchResponse, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this SearchResponse to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-export namespace SearchResponse {
-
-    /** Properties of a SearchProviderOptionItem. */
-    interface ISearchProviderOptionItem {
-
-        /** SearchProviderOptionItem label */
-        label?: (string|null);
-
-        /** SearchProviderOptionItem value */
-        value?: (google.protobuf.IAny|null);
-
-        /** SearchProviderOptionItem checked */
-        checked?: (boolean|null);
-
-        /** SearchProviderOptionItem default */
-        "default"?: (boolean|null);
-    }
-
-    /** Represents a SearchProviderOptionItem. */
-    class SearchProviderOptionItem implements ISearchProviderOptionItem {
-
-        /**
-         * Constructs a new SearchProviderOptionItem.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: SearchResponse.ISearchProviderOptionItem);
-
-        /** SearchProviderOptionItem label. */
-        public label: string;
-
-        /** SearchProviderOptionItem value. */
-        public value?: (google.protobuf.IAny|null);
-
-        /** SearchProviderOptionItem checked. */
-        public checked: boolean;
-
-        /** SearchProviderOptionItem default. */
-        public default: boolean;
-
-        /**
-         * Creates a new SearchProviderOptionItem instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns SearchProviderOptionItem instance
-         */
-        public static create(properties?: SearchResponse.ISearchProviderOptionItem): SearchResponse.SearchProviderOptionItem;
-
-        /**
-         * Encodes the specified SearchProviderOptionItem message. Does not implicitly {@link SearchResponse.SearchProviderOptionItem.verify|verify} messages.
-         * @param message SearchProviderOptionItem message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: SearchResponse.ISearchProviderOptionItem, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified SearchProviderOptionItem message, length delimited. Does not implicitly {@link SearchResponse.SearchProviderOptionItem.verify|verify} messages.
-         * @param message SearchProviderOptionItem message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: SearchResponse.ISearchProviderOptionItem, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a SearchProviderOptionItem message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns SearchProviderOptionItem
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): SearchResponse.SearchProviderOptionItem;
-
-        /**
-         * Decodes a SearchProviderOptionItem message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns SearchProviderOptionItem
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): SearchResponse.SearchProviderOptionItem;
-
-        /**
-         * Verifies a SearchProviderOptionItem message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a SearchProviderOptionItem message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns SearchProviderOptionItem
-         */
-        public static fromObject(object: { [k: string]: any }): SearchResponse.SearchProviderOptionItem;
-
-        /**
-         * Creates a plain object from a SearchProviderOptionItem message. Also converts values to other types if specified.
-         * @param message SearchProviderOptionItem
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: SearchResponse.SearchProviderOptionItem, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this SearchProviderOptionItem to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a SearchProviderOption. */
-    interface ISearchProviderOption {
-
-        /** SearchProviderOption label */
-        label?: (string|null);
-
-        /** SearchProviderOption type */
-        type?: (SearchResponse.SearchProviderOption.SearchOptionType|null);
-
-        /** SearchProviderOption options */
-        options?: ({ [k: string]: SearchResponse.ISearchProviderOptionItem }|null);
-    }
-
-    /** Represents a SearchProviderOption. */
-    class SearchProviderOption implements ISearchProviderOption {
-
-        /**
-         * Constructs a new SearchProviderOption.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: SearchResponse.ISearchProviderOption);
-
-        /** SearchProviderOption label. */
-        public label: string;
-
-        /** SearchProviderOption type. */
-        public type: SearchResponse.SearchProviderOption.SearchOptionType;
-
-        /** SearchProviderOption options. */
-        public options: { [k: string]: SearchResponse.ISearchProviderOptionItem };
-
-        /**
-         * Creates a new SearchProviderOption instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns SearchProviderOption instance
-         */
-        public static create(properties?: SearchResponse.ISearchProviderOption): SearchResponse.SearchProviderOption;
-
-        /**
-         * Encodes the specified SearchProviderOption message. Does not implicitly {@link SearchResponse.SearchProviderOption.verify|verify} messages.
-         * @param message SearchProviderOption message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: SearchResponse.ISearchProviderOption, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified SearchProviderOption message, length delimited. Does not implicitly {@link SearchResponse.SearchProviderOption.verify|verify} messages.
-         * @param message SearchProviderOption message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: SearchResponse.ISearchProviderOption, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a SearchProviderOption message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns SearchProviderOption
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): SearchResponse.SearchProviderOption;
-
-        /**
-         * Decodes a SearchProviderOption message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns SearchProviderOption
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): SearchResponse.SearchProviderOption;
-
-        /**
-         * Verifies a SearchProviderOption message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a SearchProviderOption message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns SearchProviderOption
-         */
-        public static fromObject(object: { [k: string]: any }): SearchResponse.SearchProviderOption;
-
-        /**
-         * Creates a plain object from a SearchProviderOption message. Also converts values to other types if specified.
-         * @param message SearchProviderOption
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: SearchResponse.SearchProviderOption, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this SearchProviderOption to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    namespace SearchProviderOption {
-
-        /** SearchOptionType enum. */
-        enum SearchOptionType {
-            RADIO = 0,
-            CHECKBOX = 1,
-            DROPDOWN = 2
-        }
-    }
-
-    /** Properties of a SearchProviderSort. */
-    interface ISearchProviderSort {
-
-        /** SearchProviderSort label */
-        label?: (string|null);
-
-        /** SearchProviderSort selected */
-        selected?: (boolean|null);
-
-        /** SearchProviderSort default */
-        "default"?: (boolean|null);
-    }
-
-    /** Represents a SearchProviderSort. */
-    class SearchProviderSort implements ISearchProviderSort {
-
-        /**
-         * Constructs a new SearchProviderSort.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: SearchResponse.ISearchProviderSort);
-
-        /** SearchProviderSort label. */
-        public label: string;
-
-        /** SearchProviderSort selected. */
-        public selected: boolean;
-
-        /** SearchProviderSort default. */
-        public default: boolean;
-
-        /**
-         * Creates a new SearchProviderSort instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns SearchProviderSort instance
-         */
-        public static create(properties?: SearchResponse.ISearchProviderSort): SearchResponse.SearchProviderSort;
-
-        /**
-         * Encodes the specified SearchProviderSort message. Does not implicitly {@link SearchResponse.SearchProviderSort.verify|verify} messages.
-         * @param message SearchProviderSort message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: SearchResponse.ISearchProviderSort, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified SearchProviderSort message, length delimited. Does not implicitly {@link SearchResponse.SearchProviderSort.verify|verify} messages.
-         * @param message SearchProviderSort message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: SearchResponse.ISearchProviderSort, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a SearchProviderSort message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns SearchProviderSort
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): SearchResponse.SearchProviderSort;
-
-        /**
-         * Decodes a SearchProviderSort message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns SearchProviderSort
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): SearchResponse.SearchProviderSort;
-
-        /**
-         * Verifies a SearchProviderSort message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a SearchProviderSort message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns SearchProviderSort
-         */
-        public static fromObject(object: { [k: string]: any }): SearchResponse.SearchProviderSort;
-
-        /**
-         * Creates a plain object from a SearchProviderSort message. Also converts values to other types if specified.
-         * @param message SearchProviderSort
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: SearchResponse.SearchProviderSort, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this SearchProviderSort to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** SearchResultType enum. */
-    enum SearchResultType {
-        LISTING = 0,
-        NODE = 1
-    }
-
-    /** Properties of a Vendor. */
-    interface IVendor {
-
-        /** Vendor peerID */
-        peerID?: (string|null);
-
-        /** Vendor name */
-        name?: (string|null);
-
-        /** Vendor avatarHashes */
-        avatarHashes?: (IImage|null);
-    }
-
-    /** Represents a Vendor. */
-    class Vendor implements IVendor {
-
-        /**
-         * Constructs a new Vendor.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: SearchResponse.IVendor);
-
-        /** Vendor peerID. */
-        public peerID: string;
-
-        /** Vendor name. */
-        public name: string;
-
-        /** Vendor avatarHashes. */
-        public avatarHashes?: (IImage|null);
-
-        /**
-         * Creates a new Vendor instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns Vendor instance
-         */
-        public static create(properties?: SearchResponse.IVendor): SearchResponse.Vendor;
-
-        /**
-         * Encodes the specified Vendor message. Does not implicitly {@link SearchResponse.Vendor.verify|verify} messages.
-         * @param message Vendor message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: SearchResponse.IVendor, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified Vendor message, length delimited. Does not implicitly {@link SearchResponse.Vendor.verify|verify} messages.
-         * @param message Vendor message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: SearchResponse.IVendor, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a Vendor message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns Vendor
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): SearchResponse.Vendor;
-
-        /**
-         * Decodes a Vendor message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns Vendor
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): SearchResponse.Vendor;
-
-        /**
-         * Verifies a Vendor message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a Vendor message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns Vendor
-         */
-        public static fromObject(object: { [k: string]: any }): SearchResponse.Vendor;
-
-        /**
-         * Creates a plain object from a Vendor message. Also converts values to other types if specified.
-         * @param message Vendor
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: SearchResponse.Vendor, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this Vendor to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a Listing. */
-    interface IListing {
-
-        /** Listing title */
-        title?: (string|null);
-
-        /** Listing slug */
-        slug?: (string|null);
-
-        /** Listing description */
-        description?: (string|null);
-
-        /** Listing acceptedCurrencies */
-        acceptedCurrencies?: (string[]|null);
-
-        /** Listing averageRating */
-        averageRating?: (number|null);
-
-        /** Listing ratingCount */
-        ratingCount?: (number|null);
-
-        /** Listing contractType */
-        contractType?: (SearchResponse.ContractType|null);
-
-        /** Listing nsfw */
-        nsfw?: (boolean|null);
-
-        /** Listing thumbnail */
-        thumbnail?: (IImage|null);
-
-        /** Listing price */
-        price?: (SearchResponse.IPrice|null);
-    }
-
-    /** Represents a Listing. */
-    class Listing implements IListing {
-
-        /**
-         * Constructs a new Listing.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: SearchResponse.IListing);
-
-        /** Listing title. */
-        public title: string;
-
-        /** Listing slug. */
-        public slug: string;
-
-        /** Listing description. */
-        public description: string;
-
-        /** Listing acceptedCurrencies. */
-        public acceptedCurrencies: string[];
-
-        /** Listing averageRating. */
-        public averageRating: number;
-
-        /** Listing ratingCount. */
-        public ratingCount: number;
-
-        /** Listing contractType. */
-        public contractType: SearchResponse.ContractType;
-
-        /** Listing nsfw. */
-        public nsfw: boolean;
-
-        /** Listing thumbnail. */
-        public thumbnail?: (IImage|null);
-
-        /** Listing price. */
-        public price?: (SearchResponse.IPrice|null);
-
-        /**
-         * Creates a new Listing instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns Listing instance
-         */
-        public static create(properties?: SearchResponse.IListing): SearchResponse.Listing;
-
-        /**
-         * Encodes the specified Listing message. Does not implicitly {@link SearchResponse.Listing.verify|verify} messages.
-         * @param message Listing message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: SearchResponse.IListing, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified Listing message, length delimited. Does not implicitly {@link SearchResponse.Listing.verify|verify} messages.
-         * @param message Listing message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: SearchResponse.IListing, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a Listing message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns Listing
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): SearchResponse.Listing;
-
-        /**
-         * Decodes a Listing message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns Listing
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): SearchResponse.Listing;
-
-        /**
-         * Verifies a Listing message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a Listing message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns Listing
-         */
-        public static fromObject(object: { [k: string]: any }): SearchResponse.Listing;
-
-        /**
-         * Creates a plain object from a Listing message. Also converts values to other types if specified.
-         * @param message Listing
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: SearchResponse.Listing, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this Listing to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a Price. */
-    interface IPrice {
-
-        /** Price currencyCode */
-        currencyCode?: (string|null);
-
-        /** Price amount */
-        amount?: (number|Long|null);
-    }
-
-    /** Represents a Price. */
-    class Price implements IPrice {
-
-        /**
-         * Constructs a new Price.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: SearchResponse.IPrice);
-
-        /** Price currencyCode. */
-        public currencyCode: string;
-
-        /** Price amount. */
-        public amount: (number|Long);
-
-        /**
-         * Creates a new Price instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns Price instance
-         */
-        public static create(properties?: SearchResponse.IPrice): SearchResponse.Price;
-
-        /**
-         * Encodes the specified Price message. Does not implicitly {@link SearchResponse.Price.verify|verify} messages.
-         * @param message Price message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: SearchResponse.IPrice, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified Price message, length delimited. Does not implicitly {@link SearchResponse.Price.verify|verify} messages.
-         * @param message Price message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: SearchResponse.IPrice, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a Price message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns Price
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): SearchResponse.Price;
-
-        /**
-         * Decodes a Price message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns Price
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): SearchResponse.Price;
-
-        /**
-         * Verifies a Price message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a Price message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns Price
-         */
-        public static fromObject(object: { [k: string]: any }): SearchResponse.Price;
-
-        /**
-         * Creates a plain object from a Price message. Also converts values to other types if specified.
-         * @param message Price
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: SearchResponse.Price, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this Price to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** ContractType enum. */
-    enum ContractType {
-        PHYSICAL_GOOD = 0,
-        DIGITAL_GOOD = 1,
-        SERVICE = 2,
-        CROWD_FUND = 3,
-        CRYPTOCURRENCY = 4
-    }
-
-    /** Properties of a VendorWrap. */
-    interface IVendorWrap {
-
-        /** VendorWrap data */
-        data?: (SearchResponse.IVendor|null);
-    }
-
-    /** Represents a VendorWrap. */
-    class VendorWrap implements IVendorWrap {
-
-        /**
-         * Constructs a new VendorWrap.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: SearchResponse.IVendorWrap);
-
-        /** VendorWrap data. */
-        public data?: (SearchResponse.IVendor|null);
-
-        /**
-         * Creates a new VendorWrap instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns VendorWrap instance
-         */
-        public static create(properties?: SearchResponse.IVendorWrap): SearchResponse.VendorWrap;
-
-        /**
-         * Encodes the specified VendorWrap message. Does not implicitly {@link SearchResponse.VendorWrap.verify|verify} messages.
-         * @param message VendorWrap message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: SearchResponse.IVendorWrap, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified VendorWrap message, length delimited. Does not implicitly {@link SearchResponse.VendorWrap.verify|verify} messages.
-         * @param message VendorWrap message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: SearchResponse.IVendorWrap, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a VendorWrap message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns VendorWrap
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): SearchResponse.VendorWrap;
-
-        /**
-         * Decodes a VendorWrap message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns VendorWrap
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): SearchResponse.VendorWrap;
-
-        /**
-         * Verifies a VendorWrap message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a VendorWrap message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns VendorWrap
-         */
-        public static fromObject(object: { [k: string]: any }): SearchResponse.VendorWrap;
-
-        /**
-         * Creates a plain object from a VendorWrap message. Also converts values to other types if specified.
-         * @param message VendorWrap
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: SearchResponse.VendorWrap, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this VendorWrap to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a Relationship. */
-    interface IRelationship {
-
-        /** Relationship moderators */
-        moderators?: (string[]|null);
-
-        /** Relationship vendor */
-        vendor?: (SearchResponse.IVendorWrap|null);
-    }
-
-    /** Represents a Relationship. */
-    class Relationship implements IRelationship {
-
-        /**
-         * Constructs a new Relationship.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: SearchResponse.IRelationship);
-
-        /** Relationship moderators. */
-        public moderators: string[];
-
-        /** Relationship vendor. */
-        public vendor?: (SearchResponse.IVendorWrap|null);
-
-        /**
-         * Creates a new Relationship instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns Relationship instance
-         */
-        public static create(properties?: SearchResponse.IRelationship): SearchResponse.Relationship;
-
-        /**
-         * Encodes the specified Relationship message. Does not implicitly {@link SearchResponse.Relationship.verify|verify} messages.
-         * @param message Relationship message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: SearchResponse.IRelationship, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified Relationship message, length delimited. Does not implicitly {@link SearchResponse.Relationship.verify|verify} messages.
-         * @param message Relationship message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: SearchResponse.IRelationship, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a Relationship message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns Relationship
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): SearchResponse.Relationship;
-
-        /**
-         * Decodes a Relationship message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns Relationship
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): SearchResponse.Relationship;
-
-        /**
-         * Verifies a Relationship message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a Relationship message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns Relationship
-         */
-        public static fromObject(object: { [k: string]: any }): SearchResponse.Relationship;
-
-        /**
-         * Creates a plain object from a Relationship message. Also converts values to other types if specified.
-         * @param message Relationship
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: SearchResponse.Relationship, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this Relationship to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a SearchResult. */
-    interface ISearchResult {
-
-        /** SearchResult type */
-        type?: (string|null);
-
-        /** SearchResult relationships */
-        relationships?: (SearchResponse.IRelationship|null);
-
-        /** SearchResult data */
-        data?: (SearchResponse.IListing|null);
-    }
-
-    /** Represents a SearchResult. */
-    class SearchResult implements ISearchResult {
-
-        /**
-         * Constructs a new SearchResult.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: SearchResponse.ISearchResult);
-
-        /** SearchResult type. */
-        public type: string;
-
-        /** SearchResult relationships. */
-        public relationships?: (SearchResponse.IRelationship|null);
-
-        /** SearchResult data. */
-        public data?: (SearchResponse.IListing|null);
-
-        /**
-         * Creates a new SearchResult instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns SearchResult instance
-         */
-        public static create(properties?: SearchResponse.ISearchResult): SearchResponse.SearchResult;
-
-        /**
-         * Encodes the specified SearchResult message. Does not implicitly {@link SearchResponse.SearchResult.verify|verify} messages.
-         * @param message SearchResult message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: SearchResponse.ISearchResult, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified SearchResult message, length delimited. Does not implicitly {@link SearchResponse.SearchResult.verify|verify} messages.
-         * @param message SearchResult message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: SearchResponse.ISearchResult, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a SearchResult message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns SearchResult
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): SearchResponse.SearchResult;
-
-        /**
-         * Decodes a SearchResult message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns SearchResult
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): SearchResponse.SearchResult;
-
-        /**
-         * Verifies a SearchResult message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a SearchResult message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns SearchResult
-         */
-        public static fromObject(object: { [k: string]: any }): SearchResponse.SearchResult;
-
-        /**
-         * Creates a plain object from a SearchResult message. Also converts values to other types if specified.
-         * @param message SearchResult
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: SearchResponse.SearchResult, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this SearchResult to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-
-    /** Properties of a SearchResults. */
-    interface ISearchResults {
-
-        /** SearchResults total */
-        total?: (number|Long|null);
-
-        /** SearchResults morePages */
-        morePages?: (boolean|null);
-
-        /** SearchResults results */
-        results?: (SearchResponse.ISearchResult[]|null);
-    }
-
-    /** Represents a SearchResults. */
-    class SearchResults implements ISearchResults {
-
-        /**
-         * Constructs a new SearchResults.
-         * @param [properties] Properties to set
-         */
-        constructor(properties?: SearchResponse.ISearchResults);
-
-        /** SearchResults total. */
-        public total: (number|Long);
-
-        /** SearchResults morePages. */
-        public morePages: boolean;
-
-        /** SearchResults results. */
-        public results: SearchResponse.ISearchResult[];
-
-        /**
-         * Creates a new SearchResults instance using the specified properties.
-         * @param [properties] Properties to set
-         * @returns SearchResults instance
-         */
-        public static create(properties?: SearchResponse.ISearchResults): SearchResponse.SearchResults;
-
-        /**
-         * Encodes the specified SearchResults message. Does not implicitly {@link SearchResponse.SearchResults.verify|verify} messages.
-         * @param message SearchResults message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encode(message: SearchResponse.ISearchResults, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Encodes the specified SearchResults message, length delimited. Does not implicitly {@link SearchResponse.SearchResults.verify|verify} messages.
-         * @param message SearchResults message or plain object to encode
-         * @param [writer] Writer to encode to
-         * @returns Writer
-         */
-        public static encodeDelimited(message: SearchResponse.ISearchResults, writer?: $protobuf.Writer): $protobuf.Writer;
-
-        /**
-         * Decodes a SearchResults message from the specified reader or buffer.
-         * @param reader Reader or buffer to decode from
-         * @param [length] Message length if known beforehand
-         * @returns SearchResults
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): SearchResponse.SearchResults;
-
-        /**
-         * Decodes a SearchResults message from the specified reader or buffer, length delimited.
-         * @param reader Reader or buffer to decode from
-         * @returns SearchResults
-         * @throws {Error} If the payload is not a reader or valid buffer
-         * @throws {$protobuf.util.ProtocolError} If required fields are missing
-         */
-        public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): SearchResponse.SearchResults;
-
-        /**
-         * Verifies a SearchResults message.
-         * @param message Plain object to verify
-         * @returns `null` if valid, otherwise the reason why it is not
-         */
-        public static verify(message: { [k: string]: any }): (string|null);
-
-        /**
-         * Creates a SearchResults message from a plain object. Also converts values to their respective internal types.
-         * @param object Plain object
-         * @returns SearchResults
-         */
-        public static fromObject(object: { [k: string]: any }): SearchResponse.SearchResults;
-
-        /**
-         * Creates a plain object from a SearchResults message. Also converts values to other types if specified.
-         * @param message SearchResults
-         * @param [options] Conversion options
-         * @returns Plain object
-         */
-        public static toObject(message: SearchResponse.SearchResults, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-        /**
-         * Converts this SearchResults to JSON.
-         * @returns JSON object
-         */
-        public toJSON(): { [k: string]: any };
-    }
-}
-
-/** Properties of a ListingFlat. */
-export interface IListingFlat {
-
-    /** ListingFlat id */
-    id?: (string|null);
-
-    /** ListingFlat peerID */
-    peerID?: (string|null);
-
-    /** ListingFlat slug */
-    slug?: (string|null);
-
-    /** ListingFlat title */
-    title?: (string|null);
-
-    /** ListingFlat description */
-    description?: (string|null);
-
-    /** ListingFlat nsfw */
-    nsfw?: (boolean|null);
-
-    /** ListingFlat contractType */
-    contractType?: (ListingFlat.ContractType|null);
-
-    /** ListingFlat profileName */
-    profileName?: (string|null);
-
-    /** ListingFlat profileAvatar */
-    profileAvatar?: (string|null);
-
-    /** ListingFlat pricingCurrency */
-    pricingCurrency?: (string|null);
-
-    /** ListingFlat acceptedCurrencies */
-    acceptedCurrencies?: (string[]|null);
-
-    /** ListingFlat price */
-    price?: (number|Long|null);
-
-    /** ListingFlat ratingCount */
-    ratingCount?: (number|null);
-
-    /** ListingFlat averageRating */
-    averageRating?: (number|null);
-
-    /** ListingFlat thumbnail */
-    thumbnail?: (string|null);
-}
-
-/** Represents a ListingFlat. */
-export class ListingFlat implements IListingFlat {
-
-    /**
-     * Constructs a new ListingFlat.
-     * @param [properties] Properties to set
-     */
-    constructor(properties?: IListingFlat);
-
-    /** ListingFlat id. */
-    public id: string;
-
-    /** ListingFlat peerID. */
-    public peerID: string;
-
-    /** ListingFlat slug. */
-    public slug: string;
-
-    /** ListingFlat title. */
-    public title: string;
-
-    /** ListingFlat description. */
-    public description: string;
-
-    /** ListingFlat nsfw. */
-    public nsfw: boolean;
-
-    /** ListingFlat contractType. */
-    public contractType: ListingFlat.ContractType;
-
-    /** ListingFlat profileName. */
-    public profileName: string;
-
-    /** ListingFlat profileAvatar. */
-    public profileAvatar: string;
-
-    /** ListingFlat pricingCurrency. */
-    public pricingCurrency: string;
-
-    /** ListingFlat acceptedCurrencies. */
-    public acceptedCurrencies: string[];
-
-    /** ListingFlat price. */
-    public price: (number|Long);
-
-    /** ListingFlat ratingCount. */
-    public ratingCount: number;
-
-    /** ListingFlat averageRating. */
-    public averageRating: number;
-
-    /** ListingFlat thumbnail. */
-    public thumbnail: string;
-
-    /**
-     * Creates a new ListingFlat instance using the specified properties.
-     * @param [properties] Properties to set
-     * @returns ListingFlat instance
-     */
-    public static create(properties?: IListingFlat): ListingFlat;
-
-    /**
-     * Encodes the specified ListingFlat message. Does not implicitly {@link ListingFlat.verify|verify} messages.
-     * @param message ListingFlat message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encode(message: IListingFlat, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Encodes the specified ListingFlat message, length delimited. Does not implicitly {@link ListingFlat.verify|verify} messages.
-     * @param message ListingFlat message or plain object to encode
-     * @param [writer] Writer to encode to
-     * @returns Writer
-     */
-    public static encodeDelimited(message: IListingFlat, writer?: $protobuf.Writer): $protobuf.Writer;
-
-    /**
-     * Decodes a ListingFlat message from the specified reader or buffer.
-     * @param reader Reader or buffer to decode from
-     * @param [length] Message length if known beforehand
-     * @returns ListingFlat
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): ListingFlat;
-
-    /**
-     * Decodes a ListingFlat message from the specified reader or buffer, length delimited.
-     * @param reader Reader or buffer to decode from
-     * @returns ListingFlat
-     * @throws {Error} If the payload is not a reader or valid buffer
-     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-     */
-    public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): ListingFlat;
-
-    /**
-     * Verifies a ListingFlat message.
-     * @param message Plain object to verify
-     * @returns `null` if valid, otherwise the reason why it is not
-     */
-    public static verify(message: { [k: string]: any }): (string|null);
-
-    /**
-     * Creates a ListingFlat message from a plain object. Also converts values to their respective internal types.
-     * @param object Plain object
-     * @returns ListingFlat
-     */
-    public static fromObject(object: { [k: string]: any }): ListingFlat;
-
-    /**
-     * Creates a plain object from a ListingFlat message. Also converts values to other types if specified.
-     * @param message ListingFlat
-     * @param [options] Conversion options
-     * @returns Plain object
-     */
-    public static toObject(message: ListingFlat, options?: $protobuf.IConversionOptions): { [k: string]: any };
-
-    /**
-     * Converts this ListingFlat to JSON.
-     * @returns JSON object
-     */
-    public toJSON(): { [k: string]: any };
-}
-
-export namespace ListingFlat {
-
-    /** ContractType enum. */
-    enum ContractType {
-        PHYSICAL_GOOD = 0,
-        DIGITAL_GOOD = 1,
-        SERVICE = 2,
-        CROWD_FUND = 3,
-        CRYPTOCURRENCY = 4
-    }
 }
